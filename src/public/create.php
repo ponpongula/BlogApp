@@ -27,6 +27,8 @@ $statement->bindValue(':user_id', $user_id, PDO::PARAM_STR);
 $statement->bindValue(':title', $title, PDO::PARAM_STR);
 $statement->bindValue(':content', $content, PDO::PARAM_STR);
 $statement->execute();
+header("Location: ./index.php");
+exit();
 ?>
 <style>
   .table {
