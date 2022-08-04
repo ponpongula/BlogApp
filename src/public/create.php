@@ -7,28 +7,29 @@ if (empty($user_id)) {
   header("Location: ./signin.php");
   exit();
 }
-if (empty($title) and empty($content)) {
+
+if (isset($title) and isset($content)) {
+  $dbUserName = 'root';
+  $dbPassword = 'password';
+  $pdo = new PDO(
+      'mysql:host=mysql; dbname=blog; charset=utf8',
+      $dbUserName,
+      $dbPassword
+  );
+
+  $sql = "INSERT INTO blogs(user_id, title, content) VALUES (:user_id, :title, :content)";
+
+  $statement = $pdo->prepare($sql);
+  $statement->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+  $statement->bindValue(':title', $title, PDO::PARAM_STR);
+  $statement->bindValue(':content', $content, PDO::PARAM_STR);
+  $statement->execute();
+  header("Location: ./index.php");
+  exit();
+} else {
   echo "記入漏れがあります";
   echo '<a href="create.php">戻る</a>';
 }
-
-$dbUserName = 'root';
-$dbPassword = 'password';
-$pdo = new PDO(
-    'mysql:host=mysql; dbname=blog; charset=utf8',
-    $dbUserName,
-    $dbPassword
-);
-
-$sql = "INSERT INTO blogs(user_id, title, content) VALUES (:user_id, :title, :content)";
-
-$statement = $pdo->prepare($sql);
-$statement->bindValue(':user_id', $user_id, PDO::PARAM_STR);
-$statement->bindValue(':title', $title, PDO::PARAM_STR);
-$statement->bindValue(':content', $content, PDO::PARAM_STR);
-$statement->execute();
-header("Location: ./index.php");
-exit();
 ?>
 <style>
   .table {
