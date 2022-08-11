@@ -19,7 +19,6 @@ if (empty($_POST['email']) && empty($_POST['password'])) {
 } elseif ($_POST['password'] === $member['password']) {
   $_SESSION['id'] = $member['id'];
   $_SESSION['name'] = $member['name'];
-  // echo '<a href="index.php">ホーム</a>';
   header("Location: ./index.php");
   exit();
 } else {

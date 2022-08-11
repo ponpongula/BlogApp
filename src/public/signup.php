@@ -43,17 +43,6 @@ if (empty($name) && empty($email) && empty($password)) {
   }
 }
 
-//   if (empty($errors)) {
-//     header("Location: .php");
-//   exit;
-// }
-
-  // $stmt = $pdo->prepare("INSERT INTO users VALUES(:name, :email, :password)");
-  // $stmt->bindParam(':name', $_POST['name']);
-  // $stmt->bindParam(':email', $_POST['email']);
-  // $stmt->bindParam(':password', $_POST['password']);
-  // $stmt->execute();
-
 ?>
 <style>
   .table {
