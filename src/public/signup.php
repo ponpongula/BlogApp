@@ -4,7 +4,7 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 
 if (empty($name) && empty($email) && empty($password)) {
-  echo '「ユーザーネーム」「Email」「パスワード」のどれかが記入されていません！';
+  echo '「ユーザーネーム」「Email」「パスワード」を入力してください';
 } else {
   $password2 = $_POST['password2'];
 
@@ -38,8 +38,8 @@ if (empty($name) && empty($email) && empty($password)) {
     $statement->bindValue(':email', $email, PDO::PARAM_STR);
     $statement->bindValue(':password', $password, PDO::PARAM_STR);
     $statement->execute();
-    print"<font color='#f00'>登録が完了しました</font>";
-    echo '<a href="index.php">戻る</a>';
+    print"登録が完了しました";
+    echo '<a href="signin.php">ログイン画面へ</a>';
   }
 }
 

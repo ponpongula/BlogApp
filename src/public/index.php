@@ -1,6 +1,6 @@
 <?php
 session_start();
-$search_word = $_GET['search'];
+$search_word = filter_input(INPUT_GET, 'search');
 if (isset($_SESSION['id'])) {
   require_once("./header.php");
   $dbUserName = "root";

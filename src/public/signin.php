@@ -1,5 +1,5 @@
 <?php
- session_start();
+session_start();
 $email = $_POST['email'];
 $dbUserName = 'root';
 $dbPassword = 'password';
