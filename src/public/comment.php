@@ -1,9 +1,9 @@
 <?php
 session_start();
 $user_id = $_SESSION['id'];
-$blog_id = $_POST['blog_id'];
-$commenter_name = $_POST['commenter_name'];
-$comments = $_POST['comments'];
+$blog_id = filter_input(INPUT_POST, 'blog_id');
+$commenter_name = filter_input(INPUT_POST, 'commenter_name');
+$comments = filter_input(INPUT_POST, 'comments');
 $dbUserName = 'root';
 $dbPassword = 'password';
 $pdo = new PDO(

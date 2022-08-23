@@ -8,7 +8,7 @@ $pdo = new PDO(
   $dbPassword,
   $options
 );
-$id = $_GET['id'];
+$id = filter_input(INPUT_GET, 'id');
 
 $sql = "SELECT * FROM blogs WHERE id = :id";
 $statement = $pdo->prepare($sql);

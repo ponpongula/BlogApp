@@ -8,9 +8,9 @@ $pdo = new PDO(
   $dbPassword,
   $options
 );
-$id = $_POST["id"];
-$title = $_POST["title"];
-$content = $_POST["content"];
+$id = filter_input(INPUT_POST, 'id');
+$title = filter_input(INPUT_POST, 'title');
+$content = filter_input(INPUT_POST, 'content');
 
 $stmt = $pdo->prepare("UPDATE blogs SET title = :title, content = :content WHERE id = :id");
 $stmt->bindParam(':id', $id, PDO::PARAM_INT);

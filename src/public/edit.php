@@ -7,7 +7,7 @@ $pdo = new PDO(
   $dbPassword
 );
 
-$id = $_GET['id'];
+$id = filter_input(INPUT_GET, 'id');
 
 try{
 $sql = "SELECT * FROM blogs WHERE id = :id";
@@ -25,7 +25,7 @@ $blog = $statement->fetchAll(PDO::FETCH_ASSOC);
 <html lang="ja">
 
 <body>
-	<form action="edit_save.php" method="post">
+	<form action="update.php" method="post">
 		<table align="center">
 			<input type="hidden" name="id" value="<?php echo $id; ?>" >
 			<tr>
