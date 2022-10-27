@@ -11,7 +11,12 @@ function findUserByMail(string $email): ?array
 	$statement->bindValue(':email', $email, PDO::PARAM_STR);
 	$statement->execute();
 	$user = $statement->fetch(PDO::FETCH_ASSOC);
-	return ($user) ? $user : null;
+
+	if (!$user) {
+		return null;
+	}
+	return $user;
+	
 }
 
 ?>

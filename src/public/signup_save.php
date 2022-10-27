@@ -1,7 +1,6 @@
 <?php
 require_once '../app/Lib/createUser.php';
 require_once '../app/Lib/findUserByMail.php';
-require_once '../app/Lib/redirect.php';
 
 $name = filter_input(INPUT_POST, 'name');
 $email = filter_input(INPUT_POST, 'email');
@@ -9,14 +8,15 @@ $password = filter_input(INPUT_POST, 'password');
 $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
 
 if (empty($name) && empty($email) && empty($password)) {
-  echo '「ユーザーネーム」「Email」「パスワード」を入力してください';
+  echo "<font color='#f00'>「ユーザーネーム」「Email」「パスワード」を入力してください</font>";
+  echo '<a href="signup.php">戻る</a>';
 } else {
   if (empty($password) || empty($confirmPassword)) {
     echo "<font color='#f00'>パスワードが入力されていません</font>";
+    echo '<a href="signup.php">戻る</a>';
   } elseif ($password !== $confirmPassword) {
     echo "<font color='#f00'>パスワードが一致しません</font>";
-    header("Location: singnup.php");
-    exit;
+    echo '<a href="signup.php">戻る</a>';
   }
 
   $user = findUserByMail($email);
@@ -25,7 +25,7 @@ if (empty($name) && empty($email) && empty($password)) {
     echo '<a href="signup.php">戻る</a>';
   } else {
     createUser($name, $email, $password);
-    print"登録が完了しました";
+    echo "登録が完了しました";
     echo '<a href="signin.php">ログイン画面へ</a>';
   }
 }

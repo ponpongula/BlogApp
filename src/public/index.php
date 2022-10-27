@@ -1,4 +1,6 @@
 <?php
+require_once '../app/Lib/redirect.php';
+
 session_start();
 $search_word = filter_input(INPUT_GET, 'search');
 if (isset($_SESSION['id'])) {
@@ -16,8 +18,7 @@ if (isset($_SESSION['id'])) {
   $statement->execute();
   $blogs = $statement->fetchAll(PDO::FETCH_ASSOC);
 } else {
-  header("Location: ./signin.php");
-  exit();
+  redirect("signin.php");
 }
 
 ?>

@@ -1,4 +1,6 @@
 <?php
+require_once '../app/Lib/redirect.php';
+
 $dbUserName = "root";
 $dbPassword = "password";
 $options = [];
@@ -17,6 +19,5 @@ $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 $stmt->bindParam(':title', $title, PDO::PARAM_STR);
 $stmt->bindParam(':content', $content, PDO::PARAM_STR);
 $stmt->execute();
-header("Location:index.php");
-exit();
+redirect("index.php");
 ?>

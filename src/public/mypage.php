@@ -1,4 +1,6 @@
 <?php
+require_once '../app/Lib/redirect.php';
+
 session_start();
 $user_id = $_SESSION['id'];
 if (isset($user_id)) {
@@ -12,8 +14,7 @@ if (isset($user_id)) {
   $stmt->execute();
   $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } else {
-  header("Location: ./signin.php");
-  exit();
+  redirect("signin.php");
 }
 
 ?>
