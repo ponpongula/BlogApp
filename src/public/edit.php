@@ -9,12 +9,7 @@ $pdo = new PDO(
 
 $id = filter_input(INPUT_GET, 'id');
 
-$sql = "SELECT * FROM blogs WHERE id = :id";
-$statement = $pdo->prepare($sql);
-$statement->bindValue(':id', $id, PDO::PARAM_INT);
-$statement->execute();
-$blog = $statement->fetchAll(PDO::FETCH_ASSOC);
-
+editBlog($id);
 ?>
 
 <!DOCTYPE html>

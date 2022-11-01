@@ -1,5 +1,4 @@
 <?php
-
 require_once '../app/Lib/pdoint.php';
 
 function createUser(string $name, string $mail, string $password): void
@@ -13,5 +12,4 @@ function createUser(string $name, string $mail, string $password): void
 	$statement->bindValue(':password', $password, PDO::PARAM_STR);
 	$statement->execute();
 }
-
 ?>
