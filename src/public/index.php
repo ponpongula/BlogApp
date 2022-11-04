@@ -12,11 +12,6 @@ if ($_GET['order'] === 'desc') {
   $sort_order = ' ASC';
 }
 
-// if (!$search_word) {
-//   $search_word = "";
-// }
-//  $search_word = '%' . $search_word . '%';
-
 if (!$_SESSION['id']) {
   redirect("signin.php");
 } 

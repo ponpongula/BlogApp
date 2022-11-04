@@ -12,4 +12,6 @@ $statement->bindValue(':id', $id, PDO::PARAM_INT);
 $statement->execute();
 $statement->fetchAll(PDO::FETCH_ASSOC);
 
+}
+
 ?>
