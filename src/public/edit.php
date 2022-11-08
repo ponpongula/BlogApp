@@ -1,4 +1,6 @@
 <?php
+require_once '../app/Lib/editBlog.php';
+
 $dbUserName = "root";
 $dbPassword = "password";
 $pdo = new PDO(
@@ -9,7 +11,7 @@ $pdo = new PDO(
 
 $id = filter_input(INPUT_GET, 'id');
 
-editBlog($id);
+$blog = editBlog($id);
 ?>
 
 <!DOCTYPE html>

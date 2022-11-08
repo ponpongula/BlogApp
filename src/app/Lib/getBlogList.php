@@ -11,6 +11,6 @@ function getBlogList(?string $search_word, ?string $sort_order): array
   $statement = $pdo->prepare($sql);
   $statement->execute();
   $blogs = $statement->fetchAll(PDO::FETCH_ASSOC);
-  return($blogs);
+  return $blogs;
 }
 ?>
