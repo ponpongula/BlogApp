@@ -1,26 +1,24 @@
 <?php
 session_start();
+
+require_once '../app/Lib/getBlogList.php';
+require_once '../app/Lib/redirect.php';
+
 $search_word = filter_input(INPUT_GET, 'search');
-if (isset($_SESSION['id'])) {
-  require_once("./header.php");
-  $dbUserName = "root";
-  $dbPassword = "password";
-  $pdo = new PDO("mysql:host=mysql; dbname=blog; charset=utf8", $dbUserName, $dbPassword);
-  $sql = "SELECT * FROM blogs WHERE title LIKE '%" . $search_word . "%' OR content LIKE '%" . $search_word . "%' ORDER BY created_at";
-  if ($_GET['order'] === 'desc') {
-    $sql = $sql . ' DESC';
-  } elseif ($_GET['order'] === 'asc') {
-    $sql = $sql . ' ASC';
-  }
-  $statement = $pdo->prepare($sql);
-  $statement->execute();
-  $blogs = $statement->fetchAll(PDO::FETCH_ASSOC);
-} else {
-  header("Location: ./signin.php");
-  exit();
+
+if ($_GET['order'] === 'desc') {
+  $sort_order = ' DESC';
+} elseif ($_GET['order'] === 'asc') {
+  $sort_order = ' ASC';
 }
 
+if (!$_SESSION['id']) {
+  redirect("signin.php");
+} 
+require_once("./header.php");
+
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -38,19 +36,10 @@ if (isset($_SESSION['id'])) {
   .title {
   margin-right: auto;
   }
-  .menu-item { list-style: none;
+  .menu-item { 
+  list-style: none;
   display: inline-block;
   padding: 10px;
-  }
-
-  .div {
-  border: solid 8px red;
-  box-sizing: border-box;
-
-  text-align: center;
-  line-height: 100px;
-  font-weight: bold;
-  font-size: 60px;
   }
 </style>
 <body>
@@ -77,7 +66,7 @@ if (isset($_SESSION['id'])) {
   
  
     <form action="detail.php" method="post">
-    <?php foreach ($blogs as $blog) : ?>
+    <?php foreach (getBlogList($search_word, $sort_order) as $blog) : ?>
       <table>
         <td>
           <p><tr><h2><?php echo $blog['title'] ?></h2></tr></p>

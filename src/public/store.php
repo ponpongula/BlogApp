@@ -1,11 +1,13 @@
 <?php
+require_once '../app/Lib/redirect.php';
+
 session_start();
 $user_id = $_SESSION['id'];
 $title = filter_input(INPUT_POST, 'title');
 $content = filter_input(INPUT_POST, 'content');
 if (empty($user_id)) {
-  header("Location: ./signin.php");
-  exit();
+  redirect("signin.php");
+  
 }
 
 if (isset($title) and isset($content)) {
@@ -24,7 +26,7 @@ if (isset($title) and isset($content)) {
   $statement->bindValue(':title', $title, PDO::PARAM_STR);
   $statement->bindValue(':content', $content, PDO::PARAM_STR);
   $statement->execute();
-  header("Location: ./index.php");
+  redirect("index.php");
   exit();
 } else {
   echo "記入漏れがあります";

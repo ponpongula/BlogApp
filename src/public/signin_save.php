@@ -1,4 +1,6 @@
 <?php
+require_once '../app/Lib/redirect.php';
+
 session_start();
 $email = filter_input(INPUT_POST, 'email');
 $dbUserName = 'root';
@@ -19,8 +21,7 @@ if (empty($_POST['email']) && empty($_POST['password'])) {
 } elseif ($_POST['password'] === $member['password']) {
   $_SESSION['id'] = $member['id'];
   $_SESSION['name'] = $member['name'];
-  header("Location: ./index.php");
-  exit();
+  redirect("index.php");
 } else {
   echo 'メールアドレスもしくはパスワードが間違っています。';
   echo '<a href="signin.php">戻る</a>';

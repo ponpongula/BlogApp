@@ -1,4 +1,6 @@
 <?php
+require_once '../app/Lib/redirect.php';
+
 session_start();
 $user_id = $_SESSION['id'];
 $blog_id = filter_input(INPUT_POST, 'blog_id');
@@ -20,6 +22,5 @@ $statement->bindValue(':blog_id', $blog_id, PDO::PARAM_STR);
 $statement->bindValue(':commenter_name', $commenter_name, PDO::PARAM_STR);
 $statement->bindValue(':comments', $comments, PDO::PARAM_STR);
 $statement->execute();
-header("Location: ./index.php");
-exit();
+redirect("index.php");
 ?>

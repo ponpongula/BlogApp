@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -16,27 +15,27 @@
     </tr>
 
     <tr>
-      <td><p><input type="text" name="name" placeholder="ユーザーネーム"></p></td>
+      <td><input type="text" name="name" placeholder="ユーザーネーム"></td>
     </tr>
 
     <tr>
-      <td><p><input type="text" name="email" placeholder="Eメール"></p></td>
+      <td><input type="text" name="email" placeholder="Eメール"></td>
     </tr>
 
     <tr>
-      <td><p><input type="password" name="password" placeholder="パスワード"></p></td>
+      <td><input type="password" name="password" placeholder="パスワード"></td>
     </tr>
 
     <tr>
-      <td><p><input type="password" name="password2" placeholder="パスワード確認"></p></td>
+      <td><input type="password" name="confirmPassword" placeholder="パスワード確認"></td>
     </tr>
     
     <tr>
-      <td><p><input type="submit" value="登録"></p></td>
+      <td><input type="submit" value="登録"></td>
     </tr>
 
     <tr>
-      <td><p><a href="index.php">ログイン画面へ</p></td>
+      <td><a href="index.php">ログイン画面へ</td>
     </tr>
   </table>
 </from>
