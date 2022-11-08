@@ -1,7 +1,7 @@
 <?php
 require_once '../app/Lib/pdoint.php';
 
-function mypage(string $user_id): array
+function getMypage(string $user_id): array
 {
   $pdo = pdoInit();
 

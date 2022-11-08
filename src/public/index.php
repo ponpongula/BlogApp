@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once '../app/Lib/blogList.php';
+require_once '../app/Lib/getBlogList.php';
 require_once '../app/Lib/redirect.php';
 
 $search_word = filter_input(INPUT_GET, 'search');
@@ -66,7 +66,7 @@ require_once("./header.php");
   
  
     <form action="detail.php" method="post">
-    <?php foreach (blogList($search_word, $sort_order) as $blog) : ?>
+    <?php foreach (getBlogList($search_word, $sort_order) as $blog) : ?>
       <table>
         <td>
           <p><tr><h2><?php echo $blog['title'] ?></h2></tr></p>

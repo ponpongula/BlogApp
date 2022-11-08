@@ -1,6 +1,6 @@
 <?php
 require_once '../app/Lib/redirect.php';
-require_once '../app/Lib/mypage.php';
+require_once '../app/Lib/getMypage.php';
 
 session_start();
 $user_id = $_SESSION['id'];
@@ -21,7 +21,7 @@ require_once("./header.php");
 <body>
   <h1>マイページ</h1>
   <button type="button"><a href="create.php">新規作成</a></button>
-  <?php foreach (mypage($user_id) as $blog) : ?>
+  <?php foreach (getMypage($user_id) as $blog) : ?>
     <table align="center">
       <td>
         <tr><p><h2><?php echo $blog['title'] ?></h2></p></tr>

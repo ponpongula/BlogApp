@@ -2,7 +2,7 @@
 
 require_once '../app/Lib/pdoint.php';
 
-function blogList(?string $search_word, ?string $sort_order): array
+function getBlogList(?string $search_word, ?string $sort_order): array
 {
 	$pdo = pdoInit();
 
