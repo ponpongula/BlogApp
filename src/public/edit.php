@@ -1,17 +1,10 @@
 <?php
-require_once '../app/Lib/editBlog.php';
-
-$dbUserName = "root";
-$dbPassword = "password";
-$pdo = new PDO(
-  "mysql:host=mysql; dbname=blog; charset=utf8", 
-  $dbUserName, 
-  $dbPassword
-);
+require_once '../app/Infrastructure/Dao/BlogDao.php';
 
 $id = filter_input(INPUT_GET, 'id');
 
-$blog = editBlog($id);
+$BlogDao = new BlogDao();
+$blog = $BlogDao->editBlog($id);
 ?>
 
 <!DOCTYPE html>

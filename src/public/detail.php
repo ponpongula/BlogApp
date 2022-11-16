@@ -1,25 +1,15 @@
 <?php 
-$dbUserName = "root";
-$dbPassword = "password";
-$options = [];
-$pdo = new PDO(
-  "mysql:host=mysql; dbname=blog; charset=utf8", 
-  $dbUserName, 
-  $dbPassword,
-  $options
-);
-$id = filter_input(INPUT_GET, 'id');
-$sql = "SELECT * FROM blogs WHERE id = :id";
-$statement = $pdo->prepare($sql);
-$statement->bindValue(':id', $id);
-$statement->execute();
-$blogs = $statement->fetchAll(PDO::FETCH_ASSOC);
+require_once '../app/Infrastructure/Dao/BlogDao.php';
+require_once '../app/Infrastructure/Dao/CommentDao.php';
 
-$sql = "SELECT * FROM comments WHERE blog_id = :blog_id";
-$statement = $pdo->prepare($sql);
-$statement->bindValue(':blog_id', $id);
-$statement->execute();
-$comments = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+$id = filter_input(INPUT_GET, 'id');
+
+$BlogDao = new BlogDao();
+$blog = $BlogDao->editBlog($id);
+
+$CommentDao = new CommentDao();
+$comments = $CommentDao->blogComments($id);
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +23,7 @@ $comments = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 </style>
 <body>
-  <?php foreach ($blogs as $value) : ?>
+  <?php foreach ($blog as $value) : ?>
     <table align="center">
       <tr>
         <td><h1><?php echo $value['title']?></h1></td>

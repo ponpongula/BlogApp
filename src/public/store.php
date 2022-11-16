@@ -7,7 +7,6 @@ $title = filter_input(INPUT_POST, 'title');
 $content = filter_input(INPUT_POST, 'content');
 if (empty($user_id)) {
   redirect("signin.php");
-  
 }
 
 if (isset($title) and isset($content)) {

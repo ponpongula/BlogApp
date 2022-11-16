@@ -1,10 +1,19 @@
 <?php
 session_start();
 
-require_once '../app/Lib/getBlogList.php';
+require_once '../app/Infrastructure/Dao/BlogDao.php';
 require_once '../app/Lib/redirect.php';
 
+
+if (!$_SESSION['id']) {
+  redirect("signin.php");
+} 
+
 $search_word = filter_input(INPUT_GET, 'search');
+
+if (!$search_word) {
+  $search_word = "";
+}
 
 if ($_GET['order'] === 'desc') {
   $sort_order = ' DESC';
@@ -12,10 +21,9 @@ if ($_GET['order'] === 'desc') {
   $sort_order = ' ASC';
 }
 
-if (!$_SESSION['id']) {
-  redirect("signin.php");
-} 
-require_once("./header.php");
+$BlogDao = new BlogDao();
+$blogs = $BlogDao->getBlogList($search_word, $sort_order);
+require_once("header.php");
 
 ?>
 
@@ -66,7 +74,7 @@ require_once("./header.php");
   
  
     <form action="detail.php" method="post">
-    <?php foreach (getBlogList($search_word, $sort_order) as $blog) : ?>
+    <?php foreach ($blogs as $blog) : ?>
       <table>
         <td>
           <p><tr><h2><?php echo $blog['title'] ?></h2></tr></p>

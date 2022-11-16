@@ -46,8 +46,8 @@ final class UserDao
     }
 
     /**
-     * ユーザーを検索する
-     * @param  string $mail
+     * emailの有無を検索する
+     * @param  string $email
      * @return array | null
      */
     public function findByEmail(string $email): ?array
