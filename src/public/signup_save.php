@@ -2,7 +2,6 @@
 require_once '../app/Lib/createUser.php';
 require_once '../app/Lib/findUserByMail.php';
 require_once '../app/Infrastructure/Dao/UserDao.php';
-// require_once __DIR__ . '/../vendor/autoload.php';
 
 $name = filter_input(INPUT_POST, 'name');
 $email = filter_input(INPUT_POST, 'email');
@@ -21,7 +20,6 @@ if (empty($name) && empty($email) && empty($password)) {
     echo '<a href="signup.php">戻る</a>';
   }
 
-  // $user = findUserByMail($email);
   $UserDao = new UserDao();
   $user = $UserDao->findByEmail($email);
   

@@ -27,7 +27,7 @@ final class CommentDao
      * @param　string $commenter_name
      * @param　string $comments
      */
-    public function createComments(string $user_id, string $blog_id, string $commenter_name, string $comments): void
+    public function create(string $user_id, string $blog_id, string $commenter_name, string $comments): void
     {
       
       $sql = sprintf(
@@ -53,7 +53,7 @@ final class CommentDao
      * @return array $comments
      */
 
-    public function blogComments(string $id): array
+    public function fetchAllByBlogId(string $id): array
     {
       $sql = sprintf(
         "SELECT * FROM %s WHERE blog_id = :blog_id",

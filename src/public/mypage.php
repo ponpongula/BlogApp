@@ -9,7 +9,7 @@ if (!$user_id) {
 } 
 
 $BlogDao = new BlogDao();
-$myblog = $BlogDao->getMypage($user_id);
+$myblog = $BlogDao->fetchAllByUserId($user_id);
 
 require_once("header.php");
 ?>

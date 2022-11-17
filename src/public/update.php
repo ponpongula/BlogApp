@@ -8,6 +8,6 @@ $title = filter_input(INPUT_POST, 'title');
 $content = filter_input(INPUT_POST, 'content');
 
 $blogDao = new blogDao();
-$blogDao->updateBlog($id, $title, $content);
+$blogDao->update($id, $title, $content);
 redirect("index.php");
 ?>

@@ -6,10 +6,10 @@ require_once '../app/Infrastructure/Dao/CommentDao.php';
 $id = filter_input(INPUT_GET, 'id');
 
 $BlogDao = new BlogDao();
-$blog = $BlogDao->editBlog($id);
+$blog = $BlogDao->edit($id);
 
 $CommentDao = new CommentDao();
-$comments = $CommentDao->blogComments($id);
+$comments = $CommentDao->fetchAllByBlogId($id);
 ?>
 
 <!DOCTYPE html>

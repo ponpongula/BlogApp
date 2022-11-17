@@ -45,7 +45,7 @@ final class BlogDao
    * @param  string $id
    * @return　array | null
    */
-  public function editBlog(string $id): ?array
+  public function edit(string $id): ?array
   {
     $sql = sprintf(
       "SELECT * FROM %s WHERE id = :id",
@@ -64,7 +64,7 @@ final class BlogDao
    * @param　string $title
    * @param　string $content
    */
-  public function updateBlog(string $id, string $title, string $content): void
+  public function update(string $id, string $title, string $content): void
   {
     $sql = sprintf(
       "UPDATE %s SET title = :title, content = :content WHERE id = :id",
@@ -82,7 +82,7 @@ final class BlogDao
    * @param  string $user_id
    * @return　array $blogs
    */
-  public function getMypage(string $user_id): array
+  public function fetchAllByUserId(string $user_id): array
   {
     $sql = sprintf(
       "SELECT * FROM %s WHERE user_id = :user_id",
@@ -93,6 +93,25 @@ final class BlogDao
     $statement->execute();
     $blogs = $statement->fetchAll(PDO::FETCH_ASSOC);
     return $blogs;
+  }
+
+  /**
+   * ブログを保存する
+   * @param  string $user_id
+   * @param　string $title
+   * @param　string $content
+   */
+  public function create(string $user_id, string $title, string $content): void
+  {
+    $sql = sprintf(
+      "INSERT INTO %s (user_id, title, content) VALUES (:user_id, :title, :content)",
+      self::TABLE_NAME
+    );
+    $statement = $this->pdo->prepare($sql);
+    $statement->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+    $statement->bindValue(':title', $title, PDO::PARAM_STR);
+    $statement->bindValue(':content', $content, PDO::PARAM_STR);
+    $statement->execute();
   }
 }
 ?>

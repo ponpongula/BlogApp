@@ -4,7 +4,7 @@ require_once '../app/Infrastructure/Dao/BlogDao.php';
 $id = filter_input(INPUT_GET, 'id');
 
 $BlogDao = new BlogDao();
-$blog = $BlogDao->editBlog($id);
+$blog = $BlogDao->edit($id);
 ?>
 
 <!DOCTYPE html>
