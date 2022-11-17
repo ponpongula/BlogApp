@@ -1,6 +1,7 @@
 <?php
 require_once '../app/Lib/createUser.php';
 require_once '../app/Lib/findUserByMail.php';
+require_once '../app/Infrastructure/Dao/UserDao.php';
 
 $name = filter_input(INPUT_POST, 'name');
 $email = filter_input(INPUT_POST, 'email');
@@ -19,12 +20,14 @@ if (empty($name) && empty($email) && empty($password)) {
     echo '<a href="signup.php">戻る</a>';
   }
 
-  $user = findUserByMail($email);
+  $UserDao = new UserDao();
+  $user = $UserDao->findByEmail($email);
+  
   if ($user['email'] === $email) {
     echo "<font color='#f00'>メールアドレスが複重しています</font>";
     echo '<a href="signup.php">戻る</a>';
   } else {
-    createUser($name, $email, $password);
+    $UserDao->create($name, $email, $password);
     echo "登録が完了しました";
     echo '<a href="signin.php">ログイン画面へ</a>';
   }

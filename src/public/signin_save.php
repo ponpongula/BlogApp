@@ -1,21 +1,11 @@
 <?php
-require_once '../app/Lib/redirect.php';
-
 session_start();
-$email = filter_input(INPUT_POST, 'email');
-$dbUserName = 'root';
-$dbPassword = 'password';
-$pdo = new PDO(
-    'mysql:host=mysql; dbname=blog; charset=utf8',
-    $dbUserName,
-    $dbPassword
-);
+require_once '../app/Lib/redirect.php';
+require_once '../app/Infrastructure/Dao/UserDao.php';
 
-$sql = "SELECT * FROM users WHERE email = :email";
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':email', $email);
-$stmt->execute();
-$member = $stmt->fetch();
+$email = filter_input(INPUT_POST, 'email');
+$UserDao = new UserDao();
+$member = $UserDao->findByEmail($email); 
 if (empty($_POST['email']) && empty($_POST['password'])) {
   echo "Eメールとパスワードを入力してください";
 } elseif ($_POST['password'] === $member['password']) {
@@ -26,5 +16,4 @@ if (empty($_POST['email']) && empty($_POST['password'])) {
   echo 'メールアドレスもしくはパスワードが間違っています。';
   echo '<a href="signin.php">戻る</a>';
 }
-
 ?>
