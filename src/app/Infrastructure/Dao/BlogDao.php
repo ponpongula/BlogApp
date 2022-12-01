@@ -23,7 +23,7 @@ final class BlogDao
     /**
      * ブログ一覧を取得する
      * @param  string | null
-     * @param　string | null
+     * @param  string | null
      * @return　array $blogs
      */
   public function getBlogList(?string $search_word, ?string $sort_order): array

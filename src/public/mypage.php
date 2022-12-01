@@ -1,11 +1,11 @@
 <?php
-require_once '../app/Lib/redirect.php';
+require_once '../app/Infrastructure/Redirect/redirect.php';
 require_once '../app/Infrastructure/Dao/BlogDao.php';
 
 session_start();
-$user_id = $_SESSION['id'];
+$user_id = $_SESSION['user']['id'];
 if (!$user_id) {
-  redirect("signin.php");
+  redirect("user/signin.php");
 } 
 
 $BlogDao = new BlogDao();
