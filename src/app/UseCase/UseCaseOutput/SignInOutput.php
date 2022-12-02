@@ -10,12 +10,12 @@ final class SignInOutput
         $this->isSuccess = $isSuccess;
         $this->message = $message;
     }
-    //
+    
     public function isSuccess(): bool
     {
         return $this->isSuccess;
     }
-    //
+    
     public function message(): string
     {
         return $this->message;
