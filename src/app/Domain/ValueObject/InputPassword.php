@@ -1,7 +1,4 @@
 <?php
-namespace App\Domain\ValueObject;
-use Exception;
-
 require_once __DIR__ . '/HashedPassword.php';
 
 /**
@@ -11,9 +8,9 @@ final class InputPassword
 {
     /**
      * パスワードの書式の正規表現
-     * 半角英数字両方を含む、8文字以上の正規表現
+     * 半角英数字3文字以上の正規表現
      */
-    const PASSWORD_REGULAR_EXPRESSIONS = '/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i';
+    const PASSWORD_REGULAR_EXPRESSIONS = '/\A[a-z\d]{3,100}+\z/i';
 
     /**
      * パスワードの書式が不正な場合のエラーメッセージ
