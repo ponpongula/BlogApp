@@ -1,5 +1,5 @@
 <?php
-require_once '../app/Lib/redirect.php';
+require_once '../app/Infrastructure/Redirect/redirect.php';
 require_once '../app/Infrastructure/Dao/BlogDao.php';
 
 

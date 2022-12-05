@@ -1,12 +1,12 @@
 <?php
-session_start();
 
 require_once '../app/Infrastructure/Dao/BlogDao.php';
-require_once '../app/Lib/redirect.php';
+require_once '../app/Infrastructure/Redirect/redirect.php';
 
 
-if (!$_SESSION['id']) {
-  redirect("signin.php");
+session_start();
+if (!$_SESSION['user']['id']) {
+  redirect("user/signin.php");
 } 
 
 $search_word = filter_input(INPUT_GET, 'search');

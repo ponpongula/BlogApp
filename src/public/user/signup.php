@@ -1,3 +1,11 @@
+<?php
+session_start();
+$errors = $_SESSION['errors'] ?? [];
+unset($_SESSION['errors']);
+
+$successRegistedMessage = $_SESSION['message'] ?? '';
+unset($_SESSION['message']);
+?>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -8,6 +16,11 @@
     place-items: center;
   }
 </style>
+<?php if (!empty($errors)): ?>
+    <?php foreach ($errors as $error): ?>
+        <p class="text-red-600"><?php echo $error; ?></p>
+    <?php endforeach; ?>
+<?php endif; ?>
 <form action="signup_save.php" method="post">
   <table align="center">
     <tr>
@@ -35,7 +48,7 @@
     </tr>
 
     <tr>
-      <td><a href="index.php">ログイン画面へ</td>
+      <td><a href="signin.php">ログイン画面へ</td>
     </tr>
   </table>
 </from>
