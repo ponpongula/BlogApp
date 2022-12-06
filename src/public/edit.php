@@ -1,5 +1,5 @@
 <?php
-require_once '../app/Infrastructure/Dao/BlogDao.php';
+require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
 
 $id = filter_input(INPUT_GET, 'id');
 

@@ -1,5 +1,5 @@
 <?php
-require_once '../app/Infrastructure/Dao/BlogDao.php';
+require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
 
 $id = filter_input(INPUT_GET, 'id');
 
@@ -34,8 +34,8 @@ $blog = $BlogDao->edit($id);
     </tr>
 
     <tr>
-      <td><button type="button"><a href="edit.php?id=<?php echo $value['id']; ?>">編集</button></td>
-      <td><button type="button"><a href="dalet.php">削除</button></td>
+      <td><button type="button"><a href="edit.php?id=<?php echo $value['id'];?>">編集</button></td>
+      <td><button type="button"><a href="delete.php?id=<?php echo $value['id'];?>">削除</button></td>
       <td><button type="button"><a href="mypage.php">マイページへ</button></td>
     </tr>
   </table>

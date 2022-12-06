@@ -1,7 +1,7 @@
 <?php
 
-require_once '../app/Infrastructure/Dao/BlogDao.php';
-require_once '../app/Infrastructure/Redirect/redirect.php';
+require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
+require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
 
 
 session_start();

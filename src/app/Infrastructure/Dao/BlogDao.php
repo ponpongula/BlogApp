@@ -113,5 +113,16 @@ final class BlogDao
     $statement->bindValue(':content', $content, PDO::PARAM_STR);
     $statement->execute();
   }
+
+  public function delete(string $id): void
+  {
+    $sql = sprintf(
+      "DELETE FROM %s WHERE id = :id",
+      self::TABLE_NAME
+    );
+    $statement = $this->pdo->prepare($sql);
+    $statement->bindValue(':id', $id, PDO::PARAM_STR);
+    $statement->execute();
+  }
 }
 ?>
