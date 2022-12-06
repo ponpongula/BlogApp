@@ -13,6 +13,9 @@ $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
 
 try {
   session_start();
+  if (empty($name) || empty($email)) {
+     throw new Exception('ユーザーネームとメールアドレスを入力してください');
+  }
   if (empty($password) || empty($confirmPassword)) {
       throw new Exception('パスワードを入力してください');
   }
@@ -22,7 +25,7 @@ try {
 
   $userName = new UserName($name);
   $userEmail = new Email($email);
-  $userPassword = new InputPassword($pawssord);
+  $userPassword = new InputPassword($password);
   $useCaseInput = new SignUpInput($name, $email, $password);
   $useCase = new SignUpInteractor($useCaseInput);
   $useCaseOutput = $useCase->handler();
