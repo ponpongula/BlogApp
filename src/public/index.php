@@ -6,7 +6,7 @@ require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
 
 session_start();
 if (!$_SESSION['user']['id']) {
-  redirect("user/signin.php");
+  redirect('user/signin.php');
 } 
 
 $search_word = filter_input(INPUT_GET, 'search');
@@ -23,7 +23,7 @@ if ($_GET['order'] === 'desc') {
 
 $BlogDao = new BlogDao();
 $blogs = $BlogDao->getBlogList($search_word, $sort_order);
-require_once("header.php");
+require_once('header.php');
 
 ?>
 

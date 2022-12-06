@@ -10,5 +10,5 @@ $comments = filter_input(INPUT_POST, 'comments');
 
 $commentDao = new commentDao();
 $commentDao->create($user_id, $blog_id, $commenter_name, $comments);
-redirect("index.php");
+redirect('index.php');
 ?>

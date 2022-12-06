@@ -7,7 +7,7 @@ $user_id = $_SESSION['user']['id'];
 $title = filter_input(INPUT_POST, 'title');
 $content = filter_input(INPUT_POST, 'content');
 if (empty($user_id)) {
-  redirect("user/signin.php");
+  redirect('user/signin.php');
 }
 
 if (isset($title) and isset($content)) {
