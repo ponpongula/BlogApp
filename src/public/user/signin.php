@@ -25,25 +25,34 @@ unset($_SESSION['message']);
 <form action="signin_save.php" method="post">
   <table align="center">
     <tr>
-      <td><h2>ログインページ</h2></td>
+      <td>
+        <h2>ログインページ</h2>
+      </td>
     </tr>
 
     <tr>
-      <td><p><input type="text" name="email" placeholder="Eメール"></p></td>
+      <td>
+        <input type="text" name="email" placeholder="Eメール">
+      </td>
     </tr>
 
     <tr>
-      <td><p><input type="password" name="password" placeholder="パスワード"></p></td>
+      <td>
+        <input type="password" name="password" placeholder="パスワード">
+      </td>
     </tr>
     
     <tr>
-      <td><p><input type="submit" value="ログイン"></p></td>
+      <td>
+        <input type="submit" value="ログイン">
+      </td>
     </tr>
 
     <tr>
-      <td><p><a href="signup.php">アカウントを作る</p></td>
+      <td>
+        <a href="signup.php">アカウントを作る
+      </td>
     </tr>
-
   </table>
 </from>
 </html>

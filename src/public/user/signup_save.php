@@ -2,6 +2,9 @@
 require_once __DIR__ . '/../../app/Infrastructure/Redirect/redirect.php';
 require_once __DIR__ . '/../../app/UseCase/UseCaseInput/SignUpInput.php';
 require_once __DIR__ . '/../../app/UseCase/UseCaseInteractor/SignUpInteractor.php';
+require_once __DIR__ . '/../../app/Domain/ValueObject/UserName.php';
+require_once __DIR__ . '/../../app/Domain/ValueObject/Email.php';
+require_once __DIR__ . '/../../app/Domain/ValueObject/InputPassword.php';
 
 $name = filter_input(INPUT_POST, 'name');
 $email = filter_input(INPUT_POST, 'email');
@@ -10,12 +13,19 @@ $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
 
 try {
   session_start();
+  if (empty($name) || empty($email)) {
+     throw new Exception('ユーザーネームとメールアドレスを入力してください');
+  }
   if (empty($password) || empty($confirmPassword)) {
       throw new Exception('パスワードを入力してください');
   }
   if ($password !== $confirmPassword) {
       throw new Exception('パスワードが一致しません');
   }
+
+  $userName = new UserName($name);
+  $userEmail = new Email($email);
+  $userPassword = new InputPassword($password);
   $useCaseInput = new SignUpInput($name, $email, $password);
   $useCase = new SignUpInteractor($useCaseInput);
   $useCaseOutput = $useCase->handler();

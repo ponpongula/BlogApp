@@ -1,17 +1,17 @@
 <?php
-require_once '../app/Infrastructure/Redirect/redirect.php';
-require_once '../app/Infrastructure/Dao/BlogDao.php';
+require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
+require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
 
 session_start();
 $user_id = $_SESSION['user']['id'];
 if (!$user_id) {
-  redirect("user/signin.php");
+  redirect('user/signin.php');
 } 
 
 $BlogDao = new BlogDao();
 $myblog = $BlogDao->fetchAllByUserId($user_id);
 
-require_once("header.php");
+require_once('header.php');
 ?>
 
 <!DOCTYPE html>

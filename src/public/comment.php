@@ -1,6 +1,6 @@
 <?php
-require_once '../app/Infrastructure/Redirect/redirect.php';
-require_once '../app/Infrastructure/Dao/CommentDao.php';
+require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
+require_once __DIR__ . '/../app/Infrastructure/Dao/CommentDao.php';
 
 session_start();
 $user_id = $_SESSION['user']['id'];
@@ -10,5 +10,5 @@ $comments = filter_input(INPUT_POST, 'comments');
 
 $commentDao = new commentDao();
 $commentDao->create($user_id, $blog_id, $commenter_name, $comments);
-redirect("index.php");
+redirect('index.php');
 ?>
