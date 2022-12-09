@@ -1,6 +1,4 @@
 <?php
-namespace App\Domain\ValueObject;
-use Exception;
 /**
  * メールアドレス用のValueObject
  */
