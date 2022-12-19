@@ -1,23 +1,29 @@
 <?php
-
+/**
+ * ユーザー登録ユースケースの出力値
+ */
 final class SignUpOutput
 {
+    /**
+     * @var bool
+     */
     private $isSuccess;
-    private $message;
-    
-    public function __construct(bool $isSuccess, string $message)
+
+    /**
+     * コンストラクタ
+     *
+     * @param boolean $isSuccess
+     */
+    public function __construct(bool $isSuccess)
     {
         $this->isSuccess = $isSuccess;
-        $this->message = $message;
     }
-    
+
+    /**
+     * @return boolean
+     */
     public function isSuccess(): bool
     {
         return $this->isSuccess;
-    }
-    
-    public function message(): string
-    {
-        return $this->message;
     }
 }

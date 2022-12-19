@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../VlueObject/User/UserId.php';
-require_once __DIR__ . '/../VlueObject/User/UserName.php';
-require_once __DIR__ . '/../VlueObject/Email.php';
-require_once __DIR__ . '/../VlueObject/HashedPassword.php';
+require_once __DIR__ . '/../ValueObject/User/UserId.php';
+require_once __DIR__ . '/../ValueObject/User/UserName.php';
+require_once __DIR__ . '/../ValueObject/User/Email.php';
+require_once __DIR__ . '/../ValueObject/User/HashedPassword.php';
 /**
  * メールアドレス用のValueObject
  */
@@ -81,5 +81,30 @@ final class User
     public function password(): HashedPassword
     {
         return $this->password;
+    }
+
+    /**
+     * @return Age
+     */
+    public function age(): Age
+    {
+        return $this->age;
+    }
+
+    /**
+     * @return RegistrationDate
+     */
+    public function registrationDate(): RegistrationDate
+    {
+        return $this->registrationDate;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPremiumMember(): bool
+    {
+        return $this->registrationDate->isLongTermCustomer() &&
+            $this->age->isAdult();
     }
 }

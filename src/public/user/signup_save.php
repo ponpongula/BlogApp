@@ -1,15 +1,18 @@
 <?php
-require_once __DIR__ . '/../../app/Infrastructure/Redirect/redirect.php';
+require_once __DIR__ . '/../../app/Domain/ValueObject/User/UserName.php';
+require_once __DIR__ . '/../../app/Domain/ValueObject/User/Email.php';
+require_once __DIR__ . '/../../app/Domain/ValueObject/User/InputPassword.php';
+require_once __DIR__ . '/../../app/Domain/ValueObject/User/Age.php';
 require_once __DIR__ . '/../../app/UseCase/UseCaseInput/SignUpInput.php';
 require_once __DIR__ . '/../../app/UseCase/UseCaseInteractor/SignUpInteractor.php';
-require_once __DIR__ . '/../../app/Domain/ValueObject/UserName.php';
-require_once __DIR__ . '/../../app/Domain/ValueObject/Email.php';
-require_once __DIR__ . '/../../app/Domain/ValueObject/InputPassword.php';
+require_once __DIR__ . '/../../app/Infrastructure/Redirect/redirect.php';
+
 
 $name = filter_input(INPUT_POST, 'name');
 $email = filter_input(INPUT_POST, 'email');
 $password = filter_input(INPUT_POST, 'password');
 $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
+$age = filter_input(INPUT_POST, 'age');
 
 try {
   session_start();
@@ -26,19 +29,28 @@ try {
   $userName = new UserName($name);
   $userEmail = new Email($email);
   $userPassword = new InputPassword($password);
-  $useCaseInput = new SignUpInput($name, $email, $password);
-  $useCase = new SignUpInteractor($useCaseInput);
+  $userAge = new Age($age);
+  $useCaseInput = new SignUpInput(
+      $userName,
+      $userEmail,
+      $userPassword,
+      $userAge
+  );
+  $userDao = new UserDao();
+  $userAgeDao = new UserAgeDao();
+  $useCase = new SignUpInteractor($useCaseInput, $userDao, $userAgeDao);
   $useCaseOutput = $useCase->handler();
 
   if (!$useCaseOutput->isSuccess()) {
-      throw new Exception($useCaseOutput->message());
+    throw new Exception('すでに登録済みのメールアドレスです');
   }
-  $_SESSION['errors'][] = $useCaseOutput->message();
+  $_SESSION['message'] = '登録が完了しました';
   redirect('signin.php');
 } catch (Exception $e) {
-  $_SESSION['errors'][] = $e->getMessage();
-  $_SESSION['formInputs']['name'] = $name;
-  $_SESSION['formInputs']['email'] = $email;
-  redirect('signup.php');
+    $_SESSION['errors'][] = $e->getMessage();
+    $_SESSION['user']['name'] = $name;
+    $_SESSION['user']['email'] = $email;
+    $_SESSION['user']['age'] = $age;
+    redirect('signup.php');
 }
 ?>

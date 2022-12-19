@@ -1,10 +1,11 @@
 <?php
 require_once __DIR__ . '/../../app/Infrastructure/Redirect/redirect.php';
+require_once __DIR__ . '/../../app/Domain/ValueObject/User/Email.php';
+require_once __DIR__ . '/../../app/Domain/ValueObject/User/InputPassword.php';
+require_once __DIR__ . '/../../app/Infrastructure/Dao/UserDao.php';
+require_once __DIR__ . '/../../app/Infrastructure/Dao/UserAgeDao.php';
 require_once __DIR__ . '/../../app/UseCase/UseCaseInput/SignInInput.php';
 require_once __DIR__ . '/../../app/UseCase/UseCaseInteractor/SignInInteractor.php';
-require_once __DIR__ . '/../../app/Domain/ValueObject/Email.php';
-require_once __DIR__ . '/../../app/Domain/ValueObject/InputPassword.php';
-
 
 session_start();
 $email = filter_input(INPUT_POST, 'email');
@@ -14,19 +15,22 @@ try {
   if (empty($email) || empty($password)) {
       throw new Exception('パスワードとメールアドレスを入力してください');
   }
-
   $userEmail = new Email($email);
   $inputPassword = new InputPassword($password);
-  $useCaseInput = new SignInInput($email, $password);
-  $useCase = new SignInInteractor($useCaseInput);
+  $useCaseInput = new SignInInput($userEmail, $inputPassword);
+  $userDao = new UserDao();
+  $userAgeDao = new UserAgeDao();
+  $useCase = new SignInInteractor($useCaseInput, $userDao, $userAgeDao);
   $useCaseOutput = $useCase->handler();
 
   if (!$useCaseOutput->isSuccess()) {
-    throw new Exception($useCaseOutput->message());
+    throw new Exception(
+        'メールアドレスまたは<br />パスワードが間違っています'
+    );
   }
   redirect('../index.php');
 } catch (Exception $e) {
   $_SESSION['errors'][] = $e->getMessage();
-  redirect('../index.php');
+  redirect('signin.php');
 }
 ?>

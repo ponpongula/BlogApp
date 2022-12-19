@@ -3,67 +3,42 @@ session_start();
 $errors = $_SESSION['errors'] ?? [];
 unset($_SESSION['errors']);
 
-$successRegistedMessage = $_SESSION['message'] ?? '';
-unset($_SESSION['message']);
+$userName = $_SESSION['user']['name'] ?? '';
+$email = $_SESSION['user']['email'] ?? '';
+$age = $_SESSION['user']['age'] ?? '';
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
-<style>
-  .table {
-    height: 100vh;
-    display: grid;
-    place-items: center;
-  }
-</style>
-<?php if (!empty($errors)): ?>
-    <?php foreach ($errors as $error): ?>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ユーザー登録</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-200 w-full h-screen flex justify-center items-center">
+  <div class="w-96  bg-white pt-10 pb-10 rounded-xl">
+    <div class="w-60 m-auto text-center">
+      <h2 class="text-2xl pb-5">会員登録</h2>
+
+      <?php foreach ($errors as $error): ?>
         <p class="text-red-600"><?php echo $error; ?></p>
-    <?php endforeach; ?>
-<?php endif; ?>
-<form action="signup_save.php" method="post">
-  <table align="center">
-    <tr>
-      <td>
-        <h2>新規会員登録</h2>
-      </td>
-    </tr>
+      <?php endforeach; ?>
 
-    <tr>
-      <td>
-        <input type="text" name="name" placeholder="ユーザーネーム">
-      </td>
-    </tr>
+      <form action="signup_save.php" method="POST">
+        <p><input class='border-2 border-gray-300 w-full mb-5' placeholder="User name" type=“text” name="name" required value="<?php echo $userName; ?>"></p>
+        <p><input class='border-2 border-gray-300 w-full mb-5' placeholder="Age" type=“number” name="age" required value="<?php echo $age; ?>"></p>
+        <p><input class='border-2 border-gray-300 w-full mb-5' placeholder="Email" type=“email” name="email" required value="<?php echo $email; ?>"></p>
+        <p><input class='border-2 border-gray-300 w-full mb-5' placeholder="Password" type="password" name="password"></p>
+        <p><input class='border-2 border-gray-300 w-full mb-5' placeholder="Password確認" type="password" name="confirmPassword"></p>
+        <button class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mb-5 w-full' type="submit">アカウント作成</button>
+      </form>
+      <a class="text-blue-600" href="./signin.php">ログイン画面へ</a>
+    </div>
+  </div>
+</body>
 
-    <tr>
-      <td>
-        <input type="text" name="email" placeholder="Eメール">
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        <input type="password" name="password" placeholder="パスワード">
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        <input type="password" name="confirmPassword" placeholder="パスワード確認">
-      </td>
-    </tr>
-    
-    <tr>
-      <td>
-        <input type="submit" value="登録">
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        <a href="signin.php">ログイン画面へ
-      </td>
-    </tr>
-  </table>
-</from>
 </html>

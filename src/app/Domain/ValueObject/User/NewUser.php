@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/UserName.php';
-require_once __DIR__ . '/../Email.php';
-require_once __DIR__ . '/../InputPassword.php';
+require_once __DIR__ . '/Email.php';
+require_once __DIR__ . '/InputPassword.php';
 
 final class NewUser
 {

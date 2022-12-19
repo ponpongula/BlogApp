@@ -2,22 +2,24 @@
 require_once __DIR__ . '/../../Domain/Entity/User.php';
 require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
 require_once __DIR__ . '/../../Domain/ValueObject/User/UserName.php';
-require_once __DIR__ . '/../../Domain/ValueObject/Email.php';
+require_once __DIR__ . '/../../Domain/ValueObject/User/Email.php';
+require_once __DIR__ . '/../../Domain/ValueObject/User/HashedPassword.php';
+require_once __DIR__ . '/../../Domain/ValueObject/User/Age.php';
+require_once __DIR__ . '/../../Domain/ValueObject/User/RegistrationDate.php';
 require_once __DIR__ . '/../UseCaseInput/SignInInput.php';
 require_once __DIR__ . '/../UseCaseOutput/SignInOutput.php';
 require_once __DIR__ . '/../../Infrastructure/Dao/UserDao.php';
+require_once __DIR__ . '/../../Infrastructure/Dao/UserAgeDao.php';
 
+/**
+ * ログインユースケース
+ */
 final class SignInInteractor
 {
     /**
-     * ログイン失敗時のエラーメッセージ
+     * @var SignInInput
      */
-    const FAILED_MESSAGE = 'メールアドレスまたは<br />パスワードが間違っています';
-
-    /**
-     * ログイン成功時のメッセージ
-     */
-    const SUCCESS_MESSAGE = 'ログインしました';
+    private $input;
 
     /**
      * @var UserDao
@@ -25,14 +27,26 @@ final class SignInInteractor
     private $userDao;
 
     /**
-     * @var SignInInput
+     * @var UserAgeDao
      */
-    private $input;
-    
-    public function __construct(SignInInput $input)
-    {
-        $this->userDao = new UserDao();
+    private $userAgeDao;
+
+    /**
+     * コンストラクタ
+     *
+     * @param SignInInput $input
+     * @param UserDao $userDao
+     * @param UserAgeDao $userAgeDao
+     *
+     */
+    public function __construct(
+        SignInInput $input, 
+        UserDao $userDao,
+        UserAgeDao $userAgeDao
+    ) {
         $this->input = $input;
+        $this->userDao = $userDao;
+        $this->userAgeDao = $userAgeDao;
     }
 
     /**
@@ -45,17 +59,21 @@ final class SignInInteractor
     {
         $user = $this->findUser();
 
-        if ($this->notExistsUser($user)) {
-            return new SignInOutput(false, self::FAILED_MESSAGE);
+        if ($user === null) {
+            return new SignInOutput(false);
+        }
+
+        $userMapper = $this->createUserEntity($user);
+        if ($userMapper === null) {
+            throw new Exception('年齢の登録をしてください!');
+        }
+
+        if ($this->isInvalidPassword($userMapper->password())) {
+            return new SignInOutput(false);
         }
         
-        if ($this->isInvalidPassword($user['password'])) {
-            return new SignInOutput(false, self::FAILED_MESSAGE);
-        }
-        
-        $this->saveSession($user);
-        
-        return new SignInOutput(true, self::SUCCESS_MESSAGE);
+        $this->saveSession($userMapper);
+        return new SignInOutput(true);
     }
 
     /**
@@ -69,45 +87,57 @@ final class SignInInteractor
     }
 
     /**
-     * ユーザーが存在しない場合
-     *
-     * @param array|null $user
-     * @return boolean
+     * ユーザーのEntity（実物）
+     * 
+     * @param array $user
+     * @return ?User
      */
-    private function notExistsUser(?array $user): bool
+    private function createUserEntity(array $user): ?User
     {
-        return is_null($user);
-    }
-
-    private function buildUserEntity(array $user): User
-    {
+        $userAge = $this->userAgeDao->fetchAll($user['id']);
+        if ($userAge === null) {
+            return null;
+        }
         return new User(
             new UserId($user['id']), 
             new UserName($user['name']), 
             new Email($user['email']), 
-            new HashedPassword($user['password']));
+            new HashedPassword($user['password']),
+            new Age($userAge['age']),
+            new RegistrationDate($user['created_at'])
+        );
     }
 
     /**
      * パスワードが正しいかどうか
-     *
+     * 
      * @param HashedPassword $hashedPassword
      * @return boolean
      */
     private function isInvalidPassword(string $password): bool
     {   
-        return !password_verify($this->input->password(), $password);
+        return !password_verify($this->input->password());
     }
 
     /**
      * セッションの保存処理
-     *
+     * 
      * @param User $user
      * @return void
      */
-    private function saveSession(array $user): void
+    private function saveSession(User $user): void
     {
-        $_SESSION['user']['id'] = $user['id'];
-        $_SESSION['user']['name'] = $user['name'];
+        $_SESSION['user']['id'] = $user->id()->value();
+        $_SESSION['user']['name'] = $user->name()->value();
+
+        if ($user->isPremiumMember()) {
+            $_SESSION['user']['memberStatus'] = 'プレミアム会員';
+        }
+
+        if (!$user->isPremiumMember()) {
+            $_SESSION['user']['memberStatus'] = 'ノーマル会員';
+        }
     }
 }
+
+?>
