@@ -5,9 +5,7 @@ require_once __DIR__ . '/../ValueObject/User/Email.php';
 require_once __DIR__ . '/../ValueObject/User/HashedPassword.php';
 require_once __DIR__ . '/../ValueObject/User/Age.php';
 require_once __DIR__ . '/../ValueObject/User/RegistrationDate.php';
-/**
- * メールアドレス用のValueObject
- */
+
 /**
  * ユーザーのEntity
  */

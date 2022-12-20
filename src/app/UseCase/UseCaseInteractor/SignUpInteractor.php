@@ -51,7 +51,7 @@ final class SignUpInteractor
     public function handler(): SignUpOutput
     {
         $user = $this->findUser();
-        //!is_null($user)なんで変更？
+    
         if ($user !== null) {
             return new SignUpOutput(false);
         }
