@@ -114,9 +114,9 @@ final class SignInInteractor
      * @param HashedPassword $hashedPassword
      * @return boolean
      */
-    private function isInvalidPassword(string $password): bool
+    private function isInvalidPassword(HashedPassword $hashedPassword): bool
     {   
-        return !password_verify($this->input->password());
+        return !$hashedPassword->verify($this->input->password());
     }
 
     /**
