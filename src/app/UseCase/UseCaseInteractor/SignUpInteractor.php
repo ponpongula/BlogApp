@@ -1,96 +1,93 @@
 <?php
 require_once __DIR__ . '/../UseCaseInput/SignUpInput.php';
-require_once __DIR__ . '/../UseCaseOutput/SignUpOutput.php';
 require_once __DIR__ . '/../../Infrastructure/Dao/UserDao.php';
+require_once __DIR__ . '/../../Infrastructure/Dao/UserAgeDao.php';
+require_once __DIR__ . '/../UseCaseOutput/SignUpOutput.php';
 require_once __DIR__ . '/../../Domain/ValueObject/User/NewUser.php';
+require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
+require_once __DIR__ . '/../../Domain/Entity/UserAge.php';
 
 final class SignUpInteractor
 {
     /**
-     * メールアドレスがすでに存在している場合のエラーメッセージ
+     * @var SignUpInput
      */
-    const ALLREADY_EXISTS_MESSAGE = 'すでに登録済みのメールアドレスです';
+    private $input;
+
     /**
-     * ログイン成功時のメッセージ
+     * @var UserDao
      */
-    const COMPLETED_MESSAGE = '登録が完了しました';
-    /**
-    * @var UserDao
-    */
     private $userDao;
 
     /**
-    * @var SignUpInput
-    */
-    private $useCaseInput;
-     
+     * @var UserAgeDao
+     */
+    private $userAgeDao;
+
     /**
-    * コンストラクタ
-    *
-    * @param SignUpInput $input
-    */
-    public function __construct(SignUpInput $useCaseInput)
-    {
-        $this->useCaseInput = $useCaseInput;
+     * コンストラクタ
+     *
+     * @param SignUpInput $input
+     * @param UserDao $userDao
+     * @param UserAgeDao $userAgeDao
+     *
+     */
+    public function __construct(
+        SignUpInput $input,
+        UserDao $userDao,
+        UserAgeDao $userAgeDao
+    ) {
+        $this->input = $input;
+        $this->userDao = $userDao;
+        $this->userAgeDao = $userAgeDao;
     }
 
     /**
     * ユーザー登録処理
-    * すでに存在するメールアドレスの場合はエラーとする
+    * すでに存在するメールアドレスの場合はエラー
     *
     * @return SignUpOutput
     */
     public function handler(): SignUpOutput
     {
-        $userDao = new UserDao();
-        $user = $userDao->findByEmail($this->useCaseInput->email());
-        
-        if (!is_null($user)) {
-            return new SignUpOutput(false, self::ALLREADY_EXISTS_MESSAGE);
+        $user = $this->findUser();
+    
+        if ($user !== null) {
+            return new SignUpOutput(false);
         }
-        
-        $userDao->create(
-            $this->useCaseInput->name(),
-            $this->useCaseInput->email(),
-            $this->useCaseInput->password()
-        );
-        return new SignUpOutput(true, self::COMPLETED_MESSAGE);
+
+        $this->signup();
+        return new SignUpOutput(true);
     }
     
     /**
-     * ユーザーを入力されたメールアドレスで検索する
-     *
+     * ユーザーの入力されたメールアドレスで検索
+     * 
      * @return array
      */
     private function findUser(): ?array
     {
-        return $this->userDao->findByEmail($this->useCaseInput->email()->value());
+        return $this->userDao->findByEmail($this->input->email());
     }
 
     /**
-     * ユーザーが存在するかどうか
-     *
-     * @param array|null $user
-     * @return boolean
-     */
-    private function existsUser(?array $user): bool
-    {
-        return !is_null($user);
-    }
-
-    /**
-     * ユーザーを登録する
-     *
+     * ユーザーの登録
+     * 
      * @return void
      */
     private function signup(): void
     {
         $this->userDao->create(
             new NewUser(
-                $this->useCaseInput->name(),
-                $this->useCaseInput->email(),
-                $this->useCaseInput->password()
+                $this->input->name(),
+                $this->input->email(),
+                $this->input->password()
             )
+        );
+
+        $user = $this->findUser();
+        $this->userAgeDao->create(
+            new UserAge(new UserId($user['id']), $this->input->age())
         );
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
 require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
 
@@ -23,8 +22,6 @@ if ($_GET['order'] === 'desc') {
 
 $BlogDao = new BlogDao();
 $blogs = $BlogDao->getBlogList($search_word, $sort_order);
-require_once('header.php');
-
 ?>
 
 <!DOCTYPE html>
@@ -33,6 +30,8 @@ require_once('header.php');
   <meta charset="UTF-8">
   <title>Top Pege</title>
 </head>
+
+<?php require_once __DIR__ . '/header.php'; ?>
 
 <style type="text/css">
   .header {
