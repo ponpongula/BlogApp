@@ -4,6 +4,8 @@ require_once __DIR__ . '/../../app/Domain/ValueObject/User/Email.php';
 require_once __DIR__ . '/../../app/Domain/ValueObject/User/InputPassword.php';
 require_once __DIR__ . '/../../app/Domain/ValueObject/User/Age.php';
 require_once __DIR__ . '/../../app/UseCase/UseCaseInput/SignUpInput.php';
+require_once __DIR__ . '/../../app/Adapter/QueryServise/UserQueryServise.php';
+require_once __DIR__ . '/../../app/Adapter/Repository/UserRepository.php';
 require_once __DIR__ . '/../../app/UseCase/UseCaseInteractor/SignUpInteractor.php';
 require_once __DIR__ . '/../../app/Infrastructure/Redirect/redirect.php';
 
@@ -38,7 +40,9 @@ try {
   );
   $userDao = new UserDao();
   $userAgeDao = new UserAgeDao();
-  $useCase = new SignUpInteractor($useCaseInput, $userDao, $userAgeDao);
+  $queryServise = new UserQueryServise($userDao, $userAgeDao);
+  $repository = new UserRepository();
+  $useCase = new SignUpInteractor($useCaseInput, $queryServise, $repository);
   $useCaseOutput = $useCase->handler();
 
   if (!$useCaseOutput->isSuccess()) {

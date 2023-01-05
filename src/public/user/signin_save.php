@@ -1,11 +1,12 @@
 <?php
-require_once __DIR__ . '/../../app/Infrastructure/Redirect/redirect.php';
 require_once __DIR__ . '/../../app/Domain/ValueObject/User/Email.php';
 require_once __DIR__ . '/../../app/Domain/ValueObject/User/InputPassword.php';
+require_once __DIR__ . '/../../app/UseCase/UseCaseInput/SignInInput.php';
 require_once __DIR__ . '/../../app/Infrastructure/Dao/UserDao.php';
 require_once __DIR__ . '/../../app/Infrastructure/Dao/UserAgeDao.php';
-require_once __DIR__ . '/../../app/UseCase/UseCaseInput/SignInInput.php';
+require_once __DIR__ . '/../../app/Adapter/QueryServise/UserQueryServise.php';
 require_once __DIR__ . '/../../app/UseCase/UseCaseInteractor/SignInInteractor.php';
+require_once __DIR__ . '/../../app/Infrastructure/Redirect/redirect.php';
 
 session_start();
 $email = filter_input(INPUT_POST, 'email');
@@ -20,7 +21,8 @@ try {
   $useCaseInput = new SignInInput($userEmail, $inputPassword);
   $userDao = new UserDao();
   $userAgeDao = new UserAgeDao();
-  $useCase = new SignInInteractor($useCaseInput, $userDao, $userAgeDao);
+  $queryServise = new UserQueryServise($userDao, $userAgeDao);
+  $useCase = new SignInInteractor($useCaseInput, $queryServise);
   $useCaseOutput = $useCase->handler();
 
   if (!$useCaseOutput->isSuccess()) {

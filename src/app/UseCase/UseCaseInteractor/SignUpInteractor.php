@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../Adapter/QueryServise/UserQueryServise.php';
+require_once __DIR__ . '/../../Adapter/Repository/UserRepository.php';
 require_once __DIR__ . '/../UseCaseInput/SignUpInput.php';
 require_once __DIR__ . '/../../Infrastructure/Dao/UserDao.php';
 require_once __DIR__ . '/../../Infrastructure/Dao/UserAgeDao.php';
@@ -9,6 +11,16 @@ require_once __DIR__ . '/../../Domain/Entity/UserAge.php';
 
 final class SignUpInteractor
 {
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * @var UserQueryServise
+     */
+    private $userQueryServise;
+
     /**
      * @var SignUpInput
      */
@@ -34,12 +46,12 @@ final class SignUpInteractor
      */
     public function __construct(
         SignUpInput $input,
-        UserDao $userDao,
-        UserAgeDao $userAgeDao
+        UserQueryServise $userQueryServise,
+        UserRepository $userRepository
     ) {
+        $this->userRepository = $userRepository;
+        $this->userQueryServise = $userQueryServise;
         $this->input = $input;
-        $this->userDao = $userDao;
-        $this->userAgeDao = $userAgeDao;
     }
 
     /**
@@ -51,7 +63,7 @@ final class SignUpInteractor
     public function handler(): SignUpOutput
     {
         $user = $this->findUser();
-        //!is_null($user)なんで変更？
+    
         if ($user !== null) {
             return new SignUpOutput(false);
         }
@@ -59,15 +71,15 @@ final class SignUpInteractor
         $this->signup();
         return new SignUpOutput(true);
     }
-    
+
     /**
-     * ユーザーの入力されたメールアドレスで検索
-     * 
+     * ユーザーを入力されたメールアドレスで検索する
+     *
      * @return array
      */
-    private function findUser(): ?array
+    private function findUser(): ?array//Userから変更
     {
-        return $this->userDao->findByEmail($this->input->email());
+        return $this->userQueryServise->findByEmail($this->input->email());
     }
 
     /**
@@ -77,7 +89,7 @@ final class SignUpInteractor
      */
     private function signup(): void
     {
-        $this->userDao->create(
+        $this->userRepository->insert(
             new NewUser(
                 $this->input->name(),
                 $this->input->email(),
@@ -86,7 +98,7 @@ final class SignUpInteractor
         );
 
         $user = $this->findUser();
-        $this->userAgeDao->create(
+        $this->userRepository->ageInsert(
             new UserAge(new UserId($user['id']), $this->input->age())
         );
     }

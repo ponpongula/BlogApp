@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../Adapter/QueryServise/UserQueryServise.php';
 require_once __DIR__ . '/../../Domain/Entity/User.php';
 require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
 require_once __DIR__ . '/../../Domain/ValueObject/User/UserName.php';
@@ -16,6 +17,11 @@ require_once __DIR__ . '/../../Infrastructure/Dao/UserAgeDao.php';
  */
 final class SignInInteractor
 {
+    /**
+     * @var UserQueryServise
+     */
+    private $userQueryServise;
+
     /**
      * @var SignInInput
      */
@@ -35,15 +41,14 @@ final class SignInInteractor
      * コンストラクタ
      *
      * @param SignInInput $input
-     * @param UserDao $userDao
-     * @param UserAgeDao $userAgeDao
-     *
+     * @param UserQueryServise $userQueryServise
+     * 
      */
     public function __construct(
         SignInInput $input, 
-        UserDao $userDao,
-        UserAgeDao $userAgeDao
+        UserQueryServise $userQueryServise
     ) {
+        $this->userQueryServise = $userQueryServise;
         $this->input = $input;
         $this->userDao = $userDao;
         $this->userAgeDao = $userAgeDao;
@@ -62,50 +67,23 @@ final class SignInInteractor
         if ($user === null) {
             return new SignInOutput(false);
         }
-
-        $userMapper = $this->createUserEntity($user);
-        if ($userMapper === null) {
-            throw new Exception('年齢の登録をしてください!');
-        }
-
-        if ($this->isInvalidPassword($userMapper->password())) {
+        
+        if ($this->isInvalidPassword($user->password())) {
             return new SignInOutput(false);
         }
         
-        $this->saveSession($userMapper);
+        $this->saveSession($user);
         return new SignInOutput(true);
     }
 
     /**
      * ユーザーを入力されたメールアドレスで検索する
-     * 
+     *
      * @return array | null
      */
-    private function findUser(): ?array
-    {   
-        return $this->userDao->findByEmail($this->input->email());
-    }
-
-    /**
-     * ユーザーのEntity（実物）
-     * 
-     * @param array $user
-     * @return ?User
-     */
-    private function createUserEntity(array $user): ?User
+    private function findUser(): ?User//Userから変更
     {
-        $userAge = $this->userAgeDao->fetchAll($user['id']);
-        if ($userAge === null) {
-            return null;
-        }
-        return new User(
-            new UserId($user['id']), 
-            new UserName($user['name']), 
-            new Email($user['email']), 
-            new HashedPassword($user['password']),
-            new Age($userAge['age']),
-            new RegistrationDate($user['created_at'])
-        );
+        return $this->userQueryServise->singInfindByEmail($this->input->email());
     }
 
     /**
@@ -115,7 +93,7 @@ final class SignInInteractor
      * @return boolean
      */
     private function isInvalidPassword(HashedPassword $hashedPassword): bool
-    {   
+    {
         return !$hashedPassword->verify($this->input->password());
     }
 
