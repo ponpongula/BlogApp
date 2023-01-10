@@ -18,24 +18,14 @@ require_once __DIR__ . '/../../Infrastructure/Dao/UserAgeDao.php';
 final class SignInInteractor
 {
     /**
-     * @var UserQueryServise
-     */
-    private $userQueryServise;
-
-    /**
      * @var SignInInput
      */
     private $input;
 
     /**
-     * @var UserDao
+     * @var UserQueryServise
      */
-    private $userDao;
-
-    /**
-     * @var UserAgeDao
-     */
-    private $userAgeDao;
+    private $userQueryServise;
 
     /**
      * コンストラクタ
@@ -48,10 +38,8 @@ final class SignInInteractor
         SignInInput $input, 
         UserQueryServise $userQueryServise
     ) {
-        $this->userQueryServise = $userQueryServise;
         $this->input = $input;
-        $this->userDao = $userDao;
-        $this->userAgeDao = $userAgeDao;
+        $this->userQueryServise = $userQueryServise;
     }
 
     /**
@@ -81,9 +69,9 @@ final class SignInInteractor
      *
      * @return array | null
      */
-    private function findUser(): ?User//Userから変更
+    private function findUser(): ?User
     {
-        return $this->userQueryServise->singInfindByEmail($this->input->email());
+        return $this->userQueryServise->signInfindByEmail($this->input->email());
     }
 
     /**
@@ -105,6 +93,7 @@ final class SignInInteractor
      */
     private function saveSession(User $user): void
     {
+        session_start();
         $_SESSION['user']['id'] = $user->id()->value();
         $_SESSION['user']['name'] = $user->name()->value();
 

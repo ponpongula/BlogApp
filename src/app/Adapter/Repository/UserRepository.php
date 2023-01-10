@@ -10,6 +10,11 @@ final class UserRepository
      */
     private $userDao;
 
+    /**
+     * @var UserAgeDao
+     */
+    private $userAgeDao;
+
     public function __construct()
     {
         $this->userDao = new UserDao();
@@ -21,7 +26,7 @@ final class UserRepository
         $this->userDao->create($user);
     }
 
-    public function ageInsert(UserAge $user): void
+    public function insertAge(UserAge $user): void
     {
         $this->userAgeDao->create($user);
     }

@@ -12,6 +12,11 @@ require_once __DIR__ . '/../../Domain/Entity/UserAge.php';
 final class SignUpInteractor
 {
     /**
+     * @var SignUpInput
+     */
+    private $input;
+
+    /**
      * @var UserRepository
      */
     private $userRepository;
@@ -22,36 +27,20 @@ final class SignUpInteractor
     private $userQueryServise;
 
     /**
-     * @var SignUpInput
-     */
-    private $input;
-
-    /**
-     * @var UserDao
-     */
-    private $userDao;
-
-    /**
-     * @var UserAgeDao
-     */
-    private $userAgeDao;
-
-    /**
      * コンストラクタ
      *
      * @param SignUpInput $input
-     * @param UserDao $userDao
-     * @param UserAgeDao $userAgeDao
-     *
+     * @param UserQueryServise $userQueryServise,
+     * @param UserRepository $userRepository
      */
     public function __construct(
         SignUpInput $input,
         UserQueryServise $userQueryServise,
         UserRepository $userRepository
     ) {
+        $this->input = $input;
         $this->userRepository = $userRepository;
         $this->userQueryServise = $userQueryServise;
-        $this->input = $input;
     }
 
     /**
@@ -77,7 +66,7 @@ final class SignUpInteractor
      *
      * @return array
      */
-    private function findUser(): ?array//Userから変更
+    private function findUser(): ?array
     {
         return $this->userQueryServise->findByEmail($this->input->email());
     }
@@ -98,7 +87,7 @@ final class SignUpInteractor
         );
 
         $user = $this->findUser();
-        $this->userRepository->ageInsert(
+        $this->userRepository->insertAge(
             new UserAge(new UserId($user['id']), $this->input->age())
         );
     }

@@ -16,10 +16,10 @@ $password = filter_input(INPUT_POST, 'password');
 $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
 $age = filter_input(INPUT_POST, 'age');
 
+session_start();
 try {
-  session_start();
-  if (empty($name) || empty($email)) {
-     throw new Exception('ユーザーネームとメールアドレスを入力してください');
+  if (empty($name) || empty($email) || empty($age)) {
+     throw new Exception('ユーザーネームとメールアドレスと年齢を入力してください');
   }
   if (empty($password) || empty($confirmPassword)) {
       throw new Exception('パスワードを入力してください');
@@ -41,7 +41,7 @@ try {
   $userDao = new UserDao();
   $userAgeDao = new UserAgeDao();
   $queryServise = new UserQueryServise($userDao, $userAgeDao);
-  $repository = new UserRepository();
+  $repository = new UserRepository($userDao, $userAgeDao);
   $useCase = new SignUpInteractor($useCaseInput, $queryServise, $repository);
   $useCaseOutput = $useCase->handler();
 

@@ -28,12 +28,12 @@ final class UserQueryServise
         $this->userAgeDao = new UserAgeDao();
     }
 
-    public function findByEmail(Email $email): ?array//Userから変更
+    public function findByEmail(Email $email): ?array
     {
         return $this->userDao->findByEmail($email);
     }
 
-    public function singInFindByEmail(Email $email): ?User//Userから変更
+    public function signInFindByEmail(Email $email): ?User
     {
         $user = $this->userDao->findByEmail($email);
         $userAge = $this->userAgeDao->fetchAll($user['id']);

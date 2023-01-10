@@ -8,7 +8,6 @@ require_once __DIR__ . '/../../app/Adapter/QueryServise/UserQueryServise.php';
 require_once __DIR__ . '/../../app/UseCase/UseCaseInteractor/SignInInteractor.php';
 require_once __DIR__ . '/../../app/Infrastructure/Redirect/redirect.php';
 
-session_start();
 $email = filter_input(INPUT_POST, 'email');
 $password = filter_input(INPUT_POST, 'password');
 
@@ -27,11 +26,12 @@ try {
 
   if (!$useCaseOutput->isSuccess()) {
     throw new Exception(
-        'メールアドレスまたは<br />パスワードが間違っています'
+        'メールアドレスまたは<br/>パスワードが間違っています'
     );
   }
   redirect('../index.php');
 } catch (Exception $e) {
+  session_start();
   $_SESSION['errors'][] = $e->getMessage();
   redirect('signin.php');
 }
