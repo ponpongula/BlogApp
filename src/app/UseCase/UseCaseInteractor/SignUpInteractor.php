@@ -17,14 +17,14 @@ final class SignUpInteractor
     private $input;
 
     /**
-     * @var UserRepository
-     */
-    private $userRepository;
-
-    /**
      * @var UserQueryServise
      */
     private $userQueryServise;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
 
     /**
      * コンストラクタ
@@ -39,8 +39,8 @@ final class SignUpInteractor
         UserRepository $userRepository
     ) {
         $this->input = $input;
-        $this->userRepository = $userRepository;
         $this->userQueryServise = $userQueryServise;
+        $this->userRepository = $userRepository;
     }
 
     /**
