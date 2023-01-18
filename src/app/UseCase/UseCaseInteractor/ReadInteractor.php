@@ -21,9 +21,9 @@ final class ReadInteractor
         } elseif ($_GET['order'] === 'asc') {
           $sortOrder = ' ASC';
         }
-        
+
         $blogDao = new BlogDao;
-        $blogs = $blogDao->getBlogList($this->input->searchWord(), $this->input->sortOrder());
+        $blogs = $blogDao->getBlogList($this->input->searchWord(), $this->input->sortOrder($sortOrder));
 
         return new ReadOutput($blogs);
     }
