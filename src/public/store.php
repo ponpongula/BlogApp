@@ -1,22 +1,24 @@
 <?php
 require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
 require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
+require_once __DIR__ . '/../app/UseCase/UseCaseInput/CreateInput.php';
+require_once __DIR__ . '/../app/UseCase/UseCaseInteractor/CreateInteractor.php';
+require_once __DIR__ . '/../app/UseCase/UseCaseOutput/CreateOutput.php';
 
 session_start();
 $user_id = $_SESSION['user']['id'];
 $title = filter_input(INPUT_POST, 'title');
 $content = filter_input(INPUT_POST, 'content');
-if (empty($user_id)) {
-  redirect('user/signin.php');
-}
-
-if (isset($title) and isset($content)) {
-  $BlogDao = new BlogDao();
-  $BlogDao->create($user_id, $title, $content);
-  redirect("index.php");
-  exit();
-} else {
-  echo "記入漏れがあります";
-  echo '<a href="create.php">戻る</a>';
+try {
+  if (empty($title) && empty($content)) {
+      throw new Exception('タイトルと内容を入力してください');
+  } 
+  $useCaseInput = new CreateInput($user_id, $title, $content);
+  $useCase = new CreateInteractor($useCaseInput);
+  $useCaseOutput = $useCase->handler();
+  redirect('index.php');
+} catch (Exception $e) {
+  $_SESSION['errors'][] = $e->getMessage();
+  redirect('create.php');
 }
 ?>

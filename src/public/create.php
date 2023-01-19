@@ -1,3 +1,12 @@
+<?php
+session_start();
+$errors = $_SESSION['errors'] ?? [];
+unset($_SESSION['errors']);
+
+$successRegistedMessage = $_SESSION['message'] ?? '';
+unset($_SESSION['message']);
+?>
+
 <style>
   .table {
     height: 100vh;
@@ -13,6 +22,12 @@
 </head>
 
 <body>
+  <?php if (!empty($errors)): ?>
+    <?php foreach ($errors as $error): ?>
+        <p class="text-red-600"><?php echo $error; ?></p>
+    <?php endforeach; ?>
+  <?php endif; ?>
+  <p class="text-red-600"><?php echo $successRegistedMessage; ?></p>
   <form action="store.php" method="post">
     <table align="center">
     <input type="hidden" name="user_id" value="<?php echo $user_id; ?>" >
