@@ -27,6 +27,7 @@ unset($_SESSION['message']);
                     <p class="text-red-600"><?php echo $error; ?></p>
                 <?php endforeach; ?>
             <?php endif; ?>
+            <p class="text-red-600"><?php echo $successRegistedMessage; ?></p>
             <form class="px-4" action="signin_save.php" method="POST">
                 <p><input class="border-2 border-gray-300 mb-5 w-full" type=“text” name="email" type="email" required placeholder="Email" value="<?php if (
                     isset($_SESSION['email'])
