@@ -4,15 +4,16 @@ require_once __DIR__ . '/../UseCaseOutput/CreateOutput.php';
 
 final class CreateInteractor
 {
+    private $blogDao;
     private $input;
 
     public function __construct(CreateInput $input) {
+        $this->blogDao = new BlogDao;
         $this->input = $input;
     }
 
     public function handler(): CreateOutput
     {
-        $blogDao = new BlogDao;
 
         $blogDao->create(
           $this->input->user_id(), 
