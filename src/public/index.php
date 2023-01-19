@@ -14,7 +14,7 @@ $searchWord = filter_input(INPUT_GET, 'search');
 $useCaseInput = new ReadInput($searchWord, $sortOrder);
 $useCase = new ReadInteractor($useCaseInput);
 $useCaseOutput = $useCase->handler();
-$blogs = $useCaseOutput->listAcquisition();
+$blogs = $useCaseOutput->blogList();
 ?>
 
 <!DOCTYPE html>
