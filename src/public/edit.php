@@ -1,6 +1,13 @@
 <?php
 require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
 
+session_start();
+$errors = $_SESSION['errors'] ?? [];
+unset($_SESSION['errors']);
+
+$successRegistedMessage = $_SESSION['message'] ?? '';
+unset($_SESSION['message']);
+
 $id = filter_input(INPUT_GET, 'id');
 
 $BlogDao = new BlogDao();
@@ -11,6 +18,12 @@ $blog = $BlogDao->edit($id);
 <html lang="ja">
 
 <body>
+	<?php if (!empty($errors)): ?>
+    <?php foreach ($errors as $error): ?>
+        <p class="text-red-600"><?php echo $error; ?></p>
+    <?php endforeach; ?>
+  <?php endif; ?>
+	<p class="text-red-600"><?php echo $successRegistedMessage; ?></p>
 	<form action="update.php" method="post">
 		<table align="center">
 			<input type="hidden" name="id" value="<?php echo $id; ?>" >
@@ -21,7 +34,7 @@ $blog = $BlogDao->edit($id);
 
 			<tr>
 				<td><p>本文</p></td>
-				<td><p><textarea type="form-control" name="content"><?php echo $blog[0]['title']; ?></textarea></p></td>
+				<td><p><textarea type="form-control" name="content"><?php echo $blog[0]['content']; ?></textarea></p></td>
 			</tr>
 			
 			<tr>
