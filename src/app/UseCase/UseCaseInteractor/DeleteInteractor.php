@@ -4,13 +4,13 @@ require_once __DIR__ . '/../UseCaseOutput/DeleteOutput.php';
 
 final class DeleteInteractor
 {
-    private $blogDao;
     private $input;
+    private $blogDao;
 
-    public function __construct(DeleteInput $input) 
+    public function __construct(DeleteInput $input, BlogDao $blogDao) 
     {
-        $this->blogDao = new BlogDao;
         $this->input = $input;
+        $this->blogDao = $blogDao;
     }
 
     public function handler(): DeleteOutput
