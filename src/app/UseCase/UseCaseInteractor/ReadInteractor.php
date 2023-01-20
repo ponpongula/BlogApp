@@ -12,6 +12,8 @@ final class ReadInteractor
 
     public function handler(): ReadOutput
     {
+        $searchWord = $this->input->searchWord();
+        $sortOrder = $this->input->sortOrder();
         if (!$searchWord) {
           $searchWord = "";
         }
@@ -23,7 +25,7 @@ final class ReadInteractor
         }
 
         $blogDao = new BlogDao;
-        $blogs = $blogDao->getBlogList($this->input->searchWord(), $this->input->sortOrder($sortOrder));
+        $blogs = $blogDao->getBlogList($searchWord, $sortOrder);
 
         return new ReadOutput($blogs);
     }

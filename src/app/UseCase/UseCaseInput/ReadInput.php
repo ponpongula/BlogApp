@@ -6,9 +6,10 @@ final class ReadInput
 {
     private $searchWord;
 
-    public function __construct(?string $searchWord)
+    public function __construct(?string $searchWord, ?string $sortOrder)
     {
         $this->searchWord = $searchWord;
+        $this->sortOrder = $sortOrder;
     }
 
     public function searchWord(): ?string
@@ -16,9 +17,9 @@ final class ReadInput
         return $this->searchWord;
     }
 
-    public function sortOrder(?string $sortOrder): ?string
+    public function sortOrder(): ?string
     {
-        return $sortOrder;
+        return $this->sortOrder;
     }
 }
 ?>
