@@ -15,10 +15,10 @@ final class UserRepository
      */
     private $userAgeDao;
 
-    public function __construct()
+    public function __construct(UserDao $userDao, UserAgeDao $userAgeDao)
     {
-        $this->userDao = new UserDao();
-        $this->userAgeDao = new UserAgeDao();
+        $this->userDao = $userDao;
+        $this->userAgeDao = $userAgeDao;
     }
 
     public function insert(NewUser $user): void
