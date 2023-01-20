@@ -14,7 +14,8 @@ try {
       throw new Exception('タイトルと内容を入力してください');
   } 
   $useCaseInput = new CreateInput($user_id, $title, $content);
-  $useCase = new CreateInteractor($useCaseInput);
+  $blogDao = new BlogDao();
+  $useCase = new CreateInteractor($useCaseInput, $blogDao);
   $useCaseOutput = $useCase->handler();
   redirect('index.php');
 } catch (Exception $e) {
