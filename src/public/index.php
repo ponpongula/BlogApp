@@ -12,7 +12,8 @@ if (!$_SESSION['user']['id']) {
 } 
 $searchWord = filter_input(INPUT_GET, 'search');
 $useCaseInput = new ReadInput($searchWord, $sortOrder);
-$useCase = new ReadInteractor($useCaseInput);
+$blogDao = new BlogDao();
+$useCase = new ReadInteractor($useCaseInput, $blogDao);
 $useCaseOutput = $useCase->handler();
 $blogs = $useCaseOutput->blogList();
 ?>
