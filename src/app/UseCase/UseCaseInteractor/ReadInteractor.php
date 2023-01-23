@@ -16,16 +16,6 @@ final class ReadInteractor
     {
         $searchWord = $this->input->searchWord();
         $sortOrder = $this->input->sortOrder();
-        if (!$searchWord) {
-          $searchWord = "";
-        }
-        
-        if ($_GET['order'] === 'desc') {
-          $sortOrder = ' DESC';
-        } elseif ($_GET['order'] === 'asc') {
-          $sortOrder = ' ASC';
-        }
-
         $blogs = $this->blogDao->getBlogList($searchWord, $sortOrder);
 
         return new ReadOutput($blogs);
