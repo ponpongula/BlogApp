@@ -1,27 +1,20 @@
 <?php
 require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
 require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
+require_once __DIR__ . '/../app/UseCase/UseCaseInput/ReadInput.php';
+require_once __DIR__ . '/../app/UseCase/UseCaseInteractor/ReadInteractor.php';
+require_once __DIR__ . '/../app/UseCase/UseCaseOutput/ReadOutput.php';
 
 
 session_start();
 if (!$_SESSION['user']['id']) {
   redirect('user/signin.php');
 } 
-
-$search_word = filter_input(INPUT_GET, 'search');
-
-if (!$search_word) {
-  $search_word = "";
-}
-
-if ($_GET['order'] === 'desc') {
-  $sort_order = ' DESC';
-} elseif ($_GET['order'] === 'asc') {
-  $sort_order = ' ASC';
-}
-
-$BlogDao = new BlogDao();
-$blogs = $BlogDao->getBlogList($search_word, $sort_order);
+$searchWord = filter_input(INPUT_GET, 'search');
+$useCaseInput = new ReadInput($searchWord, $sortOrder);
+$useCase = new ReadInteractor($useCaseInput);
+$useCaseOutput = $useCase->handler();
+$blogs = $useCaseOutput->listAcquisition();
 ?>
 
 <!DOCTYPE html>
@@ -76,9 +69,9 @@ $blogs = $BlogDao->getBlogList($search_word, $sort_order);
     <?php foreach ($blogs as $blog) : ?>
       <table>
         <td>
-          <p><tr><h2><?php echo $blog['title'] ?></h2></tr></p>
-          <p><tr><?php echo $blog['created_at'] ?></tr></p>
-          <p><tr><?php echo $blog['content'] ?></tr></p>
+          <p><tr><h2><?php echo $blog['title']; ?></h2></tr></p>
+          <p><tr><?php echo $blog['created_at']; ?></tr></p>
+          <p><tr><?php echo $blog['content']; ?></tr></p>
           <p><tr><a href="detail.php?id=<?php echo $blog['id']; ?>">詳細ページへ</a></tr></p>
           <hr>
         </td>
