@@ -13,7 +13,8 @@ try {
       throw new Exception('タイトルと内容を入力してください');
   } 
   $useCaseInput = new UpdateInput($id, $title, $content);
-  $useCase = new UpdateInteractor($useCaseInput);
+  $blogDao = new BlogDao();
+  $useCase = new UpdateInteractor($useCaseInput, $blogDao);
   $useCaseOutput = $useCase->handler();
   redirect('index.php');
 } catch (Exception $e) {

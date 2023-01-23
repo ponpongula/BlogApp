@@ -4,12 +4,12 @@ require_once __DIR__ . '/../UseCaseOutput/UpdateOutput.php';
 
 final class UpdateInteractor
 {
-    private $blogDao;
     private $input;
+    private $blogDao;
 
-    public function __construct(UpdateInput $input) {
-        $this->blogDao = new BlogDao;
+    public function __construct(UpdateInput $input, BlogDao $blogDao) {
         $this->input = $input;
+        $this->blogDao = $blogDao;
     }
 
     public function handler(): UpdateOutput
