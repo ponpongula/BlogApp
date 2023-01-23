@@ -5,6 +5,7 @@
 final class ReadInput
 {
     private $searchWord;
+    private $sortOrder;
 
     public function __construct(?string $searchWord, ?string $sortOrder)
     {
