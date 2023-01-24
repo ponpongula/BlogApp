@@ -10,11 +10,21 @@ session_start();
 if (!$_SESSION['user']['id']) {
   redirect('user/signin.php');
 } 
+
 $searchWord = filter_input(INPUT_GET, 'search');
+if (!$searchWord) {
+  $searchWord = "";
+}
+if ($_GET['order'] === 'desc') {
+  $sortOrder = ' DESC';
+} elseif ($_GET['order'] === 'asc') {
+  $sortOrder = ' ASC';
+}
 $useCaseInput = new ReadInput($searchWord, $sortOrder);
-$useCase = new ReadInteractor($useCaseInput);
+$blogDao = new BlogDao();
+$useCase = new ReadInteractor($useCaseInput, $blogDao);
 $useCaseOutput = $useCase->handler();
-$blogs = $useCaseOutput->listAcquisition();
+$blogs = $useCaseOutput->blogList();
 ?>
 
 <!DOCTYPE html>

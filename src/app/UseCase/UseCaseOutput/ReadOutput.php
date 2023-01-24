@@ -22,7 +22,7 @@ final class ReadOutput
     /**
      * @return array
      */
-    public function listAcquisition(): array
+    public function blogList(): array
     {
         return $this->blogList;
     }
