@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__ . 'BlogId.php';
 require_once __DIR__ . '/../User/UserId.php';
-require_once __DIR__ . 'Title.php';
-require_once __DIR__ . 'Content.php';
+require_once __DIR__ . 'BlogTitle.php';
+require_once __DIR__ . 'BlogContent.php';
 
 /**
  * 新規ブログ登録のValueObject

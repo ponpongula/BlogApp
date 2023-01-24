@@ -1,13 +1,13 @@
 <?php
 /**
- * タイトルのValueObject
+ * ブログの内容のValueObject
  */
-final class TitleName
+final class BlogContent
 {
     /**
-     * タイトルが不正な場合のエラーメッセージ
+     * 内容不正な場合のエラーメッセージ
      */
-    const INVALID_MESSAGE = 'タイトルは50文字以下でお願いします！';
+    const INVALID_MESSAGE = '内容は120文字以下でお願いします！';
 
     /**
      * @var string
@@ -37,13 +37,13 @@ final class TitleName
     }
 
     /**
-     * タイトルのバリデーション
+     * 内容のバリデーション
      *
      * @param string $value
      * @return boolean
      */
     private function isInvalid(string $value): bool
     {
-        return mb_strlen($value) > 50;
+        return mb_strlen($value) > 120;
     }
 }
