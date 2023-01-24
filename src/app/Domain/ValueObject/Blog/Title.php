@@ -2,7 +2,7 @@
 /**
  * タイトルのValueObject
  */
-final class TileName
+final class TitleName
 {
     /**
      * タイトルが不正な場合のエラーメッセージ
