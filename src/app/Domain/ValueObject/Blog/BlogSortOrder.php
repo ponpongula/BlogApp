@@ -22,7 +22,7 @@
    */
   public function __construct(?string $value)
   {
-      if (self::SORT_ORDER_DESC === $value || self::SORT_ORDER_ASC === $value) {
+      if (!self::SORT_ORDER_DESC === $value || !self::SORT_ORDER_ASC === $value) {
           throw new Exception(self::INVALID_MESSAGE);
       }
 
