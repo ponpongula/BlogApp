@@ -15,12 +15,11 @@ final class UpdateInteractor
     public function handler(): UpdateOutput
     {
         $this->blogDao->update(
-          $this->input->id(), 
+          $this->input->blog_id(), 
           $this->input->title(), 
           $this->input->content()
         );
     
         return new UpdateOutput(true);
     }
-
 }

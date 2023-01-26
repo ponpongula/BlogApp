@@ -15,7 +15,7 @@ final class DeleteInteractor
 
     public function handler(): DeleteOutput
     {
-        $this->blogDao->delete($this->input->blogid());
+        $this->blogDao->delete($this->input->blog_id());
   
         return new DeleteOutput(true);
     }
