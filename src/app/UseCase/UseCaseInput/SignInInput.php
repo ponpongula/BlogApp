@@ -45,4 +45,3 @@ final class SignInInput
         return $this->password;
     }
 }
-?>

@@ -27,5 +27,4 @@ final class ReadInteractor
 
         return new ReadOutput($blogs);
     }
-
 }

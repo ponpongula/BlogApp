@@ -23,4 +23,3 @@ final class ReadInput
         return $this->sortOrder;
     }
 }
-?>
