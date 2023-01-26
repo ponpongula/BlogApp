@@ -1,31 +1,62 @@
 <?php
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogId.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogTitle.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogContent.php';
+
 /**
  * アップデートユースケースの入力値
  */
 final class UpdateInput
 {
-    private $id;
+    /**
+     * @var BlogId
+     */
+    private $blog_id;
+
+    /**
+     * @var BlogTitle
+     */
     private $title;
+
+    /**
+     * @var BlogContent
+     */
     private $content;
 
-    public function __construct(string $id, string $title, string $content)
+    /**
+     * コンストラクタ
+     *
+     * @param BlogId $blog_id
+     * @param BlogTitle $title
+     * @param BlogContent $content
+     */
+    public function __construct(BlogId $blog_id, BlogTitle $title, BlogContent $content)
     {
-        $this->id = $id;
+        $this->blog_id = $blog_id;
         $this->title = $title;
         $this->content = $content;
     }
 
-    public function id(): string
+    /**
+     * @param BlogId
+     */
+    public function blog_id(): BlogId
     {
-        return $this->id;
+        return $this->blog_id;
     }
 
-    public function title(): string
+    /**
+     * @param BlogTitle
+     */
+    public function title(): BlogTitle
     {
         return $this->title;
     }
 
-    public function content(): string
+    /**
+     * @param BlogContent
+     */
+    public function content(): BlogContent
     {
         return $this->content;
     }

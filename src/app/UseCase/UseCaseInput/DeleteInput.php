@@ -1,15 +1,31 @@
 <?php
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogId.php';
+
+/**
+ * デリートユースケースの入力値
+ */
 final class DeleteInput
 {
-  private $id;
+    /**
+     * @var BlogId
+     */
+    private $id;
 
-  public function __construct(string $id)
-  {
-      $this->blogid = $id;
-  }
+    /**
+     * コンストラクター
+     * 
+     * @param BlogId $id 
+     */
+    public function __construct(BlogId $id)
+    {
+        $this->blogid = $id;
+    }
 
-  public function blogid(): string
-  {
-      return $this->blogid;
-  }
+    /**
+     * @return BlogId
+     */
+    public function blog_id(): BlogId
+    {
+        return $this->blog_id;
+    }
 }
