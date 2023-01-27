@@ -22,7 +22,7 @@ final class BlogSerchWord
     public function __construct(?string $value)
     {
         if ($this->isInvalid($value)) {
-            throw new Exception(self::INVALID_MESSAGE);
+            if (!is_null($value)) throw new Exception(self::INVALID_MESSAGE);
         }
 
         $this->value = $value;
