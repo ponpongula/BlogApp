@@ -81,4 +81,3 @@ final class SignUpInput
         return $this->age;
     }
 }
-?>

@@ -23,5 +23,4 @@ final class CreateInteractor
     
         return new CreateOutput(true);
     }
-
 }
