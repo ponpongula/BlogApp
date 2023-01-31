@@ -8,6 +8,7 @@ final class BlogSearchWord
      * ブログ検索ワードの不正な場合のエラーメッセージ
      */
     const INVALID_MESSAGE = '50文字以下でお願いします！';
+    const IS_NULL = "";
 
     /**
      * @var string
@@ -22,7 +23,7 @@ final class BlogSearchWord
     public function __construct(?string $value)
     {
         if ($this->isInvalid($value)) {
-            if (!is_null($value)) throw new Exception(self::INVALID_MESSAGE);
+            if (!self::IS_NULL === $value) throw new Exception(self::INVALID_MESSAGE);
         }
 
         $this->value = $value;

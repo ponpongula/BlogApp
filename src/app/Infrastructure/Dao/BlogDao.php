@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogSearchWord.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogSortOrder.php';
 /**
  * ブログ情報を操作するDAO
  */
@@ -26,15 +28,15 @@ final class BlogDao
      * @param  string | null
      * @return　array $blogs
      */
-  public function getBlogList(?string $search_word, ?string $sort_order): array
+  public function getBlogList(BlogSearchWord $searchWord, ?BlogSortOrder $sortOrder): array
   {
     $sql = sprintf(
-      "SELECT * FROM %s WHERE title LIKE :search_word OR content LIKE :search_word ORDER BY created_at",
+      "SELECT * FROM %s WHERE title LIKE :searchWord OR content LIKE :searchWord ORDER BY created_at",
       self::TABLE_NAME
     );
-    $sql  = $sql . $sort_order;
+    $sql  = $sql . serialize($sortOrder);
     $statement = $this->pdo->prepare($sql);
-    $statement->bindValue(":search_word", '%' . $search_word . '%', PDO::PARAM_STR);
+    $statement->bindValue(":searchWord", '%' . $searchWord . '%');
     $statement->execute();
     $blogs = $statement->fetchAll(PDO::FETCH_ASSOC);
     return $blogs;
@@ -45,7 +47,7 @@ final class BlogDao
    * @param  string $id
    * @return　array | null
    */
-  public function edit(string $id): ?array
+  public function edit(BlogId $id): ?array
   {
     $sql = sprintf(
       "SELECT * FROM %s WHERE id = :id",
@@ -64,7 +66,7 @@ final class BlogDao
    * @param　string $title
    * @param　string $content
    */
-  public function update(string $id, string $title, string $content): void
+  public function update(BlogId $id, BlogTitle $title, BlogContent $content): void
   {
     $sql = sprintf(
       "UPDATE %s SET title = :title, content = :content WHERE id = :id",
@@ -82,7 +84,7 @@ final class BlogDao
    * @param  string $user_id
    * @return　array $blogs
    */
-  public function fetchAllByUserId(string $user_id): array
+  public function fetchAllByUserId(UserId $user_id): array
   {
     $sql = sprintf(
       "SELECT * FROM %s WHERE user_id = :user_id",
@@ -101,7 +103,7 @@ final class BlogDao
    * @param　string $title
    * @param　string $content
    */
-  public function create(string $user_id, string $title, string $content): void
+  public function create(UserId $user_id, BlogTitle $title, BlogContent $content): void
   {
     $sql = sprintf(
       "INSERT INTO %s (user_id, title, content) VALUES (:user_id, :title, :content)",
@@ -114,14 +116,14 @@ final class BlogDao
     $statement->execute();
   }
 
-  public function delete(string $id): void
+  public function delete(BlogId $id): void
   {
     $sql = sprintf(
       "DELETE FROM %s WHERE id = :id",
       self::TABLE_NAME
     );
     $statement = $this->pdo->prepare($sql);
-    $statement->bindValue(':id', $id, PDO::PARAM_STR);
+    $statement->v(':id', $id, PDO::PARAM_STR);
     $statement->execute();
   }
 }

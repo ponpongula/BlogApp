@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogTitle.php';
+require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogTitle.php';
+require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogTitle.php';
 require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
 require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
 require_once __DIR__ . '/../app/UseCase/UseCaseInput/UpdateInput.php';
@@ -12,7 +15,10 @@ try {
   if (empty($title) || empty($content)) {
       throw new Exception('タイトルと内容を入力してください');
   } 
-  $useCaseInput = new UpdateInput($id, $title, $content);
+  $BlogId = new BlogId($id);
+  $BLogTitle = new BlogTitle($title);
+  $BlogContent = new BlogContent($content);
+  $useCaseInput = new UpdateInput($BlogId, $BLogTitle, $BlogContent);
   $blogDao = new BlogDao();
   $useCase = new UpdateInteractor($useCaseInput, $blogDao);
   $useCaseOutput = $useCase->handler();
