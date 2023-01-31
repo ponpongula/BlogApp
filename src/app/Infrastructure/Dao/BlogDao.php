@@ -1,6 +1,10 @@
 <?php
 require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogSearchWord.php';
 require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogSortOrder.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogId.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogTitle.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogContent.php';
+require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
 /**
  * ブログ情報を操作するDAO
  */
