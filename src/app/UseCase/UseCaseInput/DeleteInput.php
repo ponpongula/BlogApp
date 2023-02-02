@@ -18,7 +18,7 @@ final class DeleteInput
      */
     public function __construct(BlogId $id)
     {
-        $this->blogid = $id;
+        $this->blog_id = $id;
     }
 
     /**
