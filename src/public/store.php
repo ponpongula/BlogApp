@@ -18,8 +18,8 @@ try {
       throw new Exception('タイトルと内容を入力してください');
   } 
   $user_id = new UserId($user_id);
-  $title = new BlogTitle();
-  $content = new BlogContent();
+  $title = new BlogTitle($title);
+  $content = new BlogContent($content);
   $useCaseInput = new CreateInput($user_id, $title, $content);
   $blogDao = new BlogDao();
   $useCase = new CreateInteractor($useCaseInput, $blogDao);
