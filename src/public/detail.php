@@ -58,7 +58,7 @@ $comments = $CommentDao->fetchAllByBlogId($id);
         </tr>
         <tr>
           <td>内容</td>
-          <td><textarea name="comments" cols="50" rows="10" placeholder="内容"></textarea></td>
+          <td><textarea name="comment" cols="50" rows="10" placeholder="内容"></textarea></td>
         </tr>
         <tr>
           <td><button type="submit" name="button">コメント</button></td>
