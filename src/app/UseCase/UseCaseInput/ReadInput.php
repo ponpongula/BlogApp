@@ -23,7 +23,7 @@ final class ReadInput
      * @param BlogSearchWord $searchWord 
      * @param BlogSortOrder $sortOrder 
      */
-    public function __construct(?BlogSearchWord $searchWord, ?BlogSortOrder $sortOrder)
+    public function __construct(BlogSearchWord $searchWord, BlogSortOrder $sortOrder)
     {
         $this->searchWord = $searchWord;
         $this->sortOrder = $sortOrder;
@@ -32,7 +32,7 @@ final class ReadInput
     /**
      * @return BlogSearchWord
      */
-    public function searchWord(): ?BlogSearchWord
+    public function searchWord(): BlogSearchWord
     {
         return $this->searchWord;
     }
@@ -40,7 +40,7 @@ final class ReadInput
     /**
      * @return BlogSortOrder
      */
-    public function sortOrder(): ?BlogSortOrder
+    public function sortOrder(): BlogSortOrder
     {
         return $this->sortOrder;
     }

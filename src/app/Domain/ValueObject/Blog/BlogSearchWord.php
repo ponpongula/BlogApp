@@ -10,7 +10,7 @@ final class BlogSearchWord
     const INVALID_MESSAGE = '50文字以下でお願いします！';
 
     /**
-     * @var string
+     * @var string | NULL
      */
     private $value;
 
@@ -22,7 +22,7 @@ final class BlogSearchWord
     public function __construct(?string $value)
     {
         if ($this->isInvalid($value)) {
-            if (!is_null($value)) throw new Exception(self::INVALID_MESSAGE);
+            if (!$value === "") throw new Exception(self::INVALID_MESSAGE);
         }
 
         $this->value = $value;

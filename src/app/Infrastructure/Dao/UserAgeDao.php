@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../Domain/Entity/UserAge.php';
+
 /**
  * ユーザー情報を操作する
  */

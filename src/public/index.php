@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogSearchWord.php';
+require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogSortOrder.php';
 require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
 require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
 require_once __DIR__ . '/../app/UseCase/UseCaseInput/ReadInput.php';
@@ -20,7 +22,9 @@ if ($_GET['order'] === 'desc') {
 } elseif ($_GET['order'] === 'asc') {
   $sortOrder = ' ASC';
 }
-$useCaseInput = new ReadInput($searchWord, $sortOrder);
+$BlogSearchWord = new BlogSearchWord($searchWord);
+$BlogSortOrder = new BlogSortOrder($sortOrder);
+$useCaseInput = new ReadInput($BlogSearchWord, $BlogSortOrder);
 $blogDao = new BlogDao();
 $useCase = new ReadInteractor($useCaseInput, $blogDao);
 $useCaseOutput = $useCase->handler();

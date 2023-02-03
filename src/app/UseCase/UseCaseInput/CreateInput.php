@@ -1,7 +1,8 @@
 <?php
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/UserId.php';
+require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
 require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogTitle.php';
 require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogContent.php';
+
 /**
  * クリエイトユースケースの入力値
  */

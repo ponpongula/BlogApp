@@ -3,6 +3,9 @@ require_once __DIR__ . '/UserName.php';
 require_once __DIR__ . '/Email.php';
 require_once __DIR__ . '/InputPassword.php';
 
+/**
+ * 新規ユーザー登録のValueObject
+ */
 final class NewUser
 {
     private UserName $name;

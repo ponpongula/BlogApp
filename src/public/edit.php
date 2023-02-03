@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogId.php';
 require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
 
 session_start();
@@ -9,9 +10,9 @@ $successRegistedMessage = $_SESSION['message'] ?? '';
 unset($_SESSION['message']);
 
 $id = filter_input(INPUT_GET, 'id');
-
+$BlogId = new BlogId($id);
 $BlogDao = new BlogDao();
-$blog = $BlogDao->edit($id);
+$blog = $BlogDao->edit($BlogId);
 ?>
 
 <!DOCTYPE html>

@@ -1,29 +1,44 @@
 <?php
-require_once __DIR__ . 'BlogId.php';
+require_once __DIR__ . '/BlogId.php';
 require_once __DIR__ . '/../User/UserId.php';
-require_once __DIR__ . 'BlogTitle.php';
-require_once __DIR__ . 'BlogContent.php';
+require_once __DIR__ . '/BlogTitle.php';
+require_once __DIR__ . '/BlogContent.php';
 
 /**
  * 新規ブログ登録のValueObject
  */
 final class NewBlog
 {
-    private BlogId $BlogId;
-    private UserId $UserId;
-    private Title $Title;
-    private Content $Content;
+    /**
+     * @var BlogId
+     */
+    private $UserId;
+
+    /**
+     * @var UserId
+     */
+    private $BlogId;
+
+    /**
+     * @var BlogTitle
+     */
+    private $BlogTitle;
+
+    /**
+     * @var BlogContent
+     */
+    private $BlogContent;
 
     public function __construct(
         BlogId $BlogId,
         UserId $UserId,
-        Title $Title,
-        Content $Content
+        BlogTitle $BlogTitle,
+        BlogContent $BlogContent
     ) {
         $this->BlogId = $BlogId;
         $this->UserId = $UserId;
-        $this->Title = $Title;
-        $this->Content = $Content;
+        $this->BlogTitle = $BlogTitle;
+        $this->BlogContent = $BlogContent;
     }
 
     /**
@@ -43,18 +58,18 @@ final class NewBlog
     }
 
     /**
-     * @return Title
+     * @return BlogTitle
      */
-    public function Title(): Title
+    public function BlogTitle(): BlogTitle
     {
-        return $this->Title;
+        return $this->BlogTitle;
     }
 
     /**
-     * @return Content
+     * @return BlogContent
      */
-    public function Content(): Content
+    public function BlogContent(): BlogContent
     {
-        return $this->Content;
+        return $this->BlogContent;
     }
 }

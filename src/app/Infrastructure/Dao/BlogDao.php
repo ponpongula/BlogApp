@@ -1,4 +1,11 @@
 <?php
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogSearchWord.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogSortOrder.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogId.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogTitle.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogContent.php';
+require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
+
 /**
  * ブログ情報を操作するDAO
  */
@@ -7,6 +14,10 @@ final class BlogDao
   const TABLE_NAME = 'blogs';
   private $pdo;
 
+    /**
+     * コンストラクタ
+     * @param PDO $pdo
+     */
   public function __construct()
   {
       try {
@@ -22,19 +33,19 @@ final class BlogDao
   
     /**
      * ブログ一覧を取得する
-     * @param  string | null
-     * @param  string | null
+     * @param  BlogSearchWord $searchWord
+     * @param  BlogSortOrder $sortOrder
      * @return　array $blogs
      */
-  public function getBlogList(?string $search_word, ?string $sort_order): array
+  public function getBlogList(BlogSearchWord $searchWord, BlogSortOrder $sortOrder): array
   {
     $sql = sprintf(
-      "SELECT * FROM %s WHERE title LIKE :search_word OR content LIKE :search_word ORDER BY created_at",
+      "SELECT * FROM %s WHERE title LIKE :searchWord OR content LIKE :searchWord ORDER BY created_at",
       self::TABLE_NAME
     );
-    $sql  = $sql . $sort_order;
+    $sql  = $sql . $sortOrder->value();
     $statement = $this->pdo->prepare($sql);
-    $statement->bindValue(":search_word", '%' . $search_word . '%', PDO::PARAM_STR);
+    $statement->bindValue(":searchWord", '%' . $searchWord->value() . '%');
     $statement->execute();
     $blogs = $statement->fetchAll(PDO::FETCH_ASSOC);
     return $blogs;
@@ -42,17 +53,17 @@ final class BlogDao
 
   /**
    * ブログの値を取得する
-   * @param  string $id
+   * @param  BlogId $id
    * @return　array | null
    */
-  public function edit(string $id): ?array
+  public function edit(BlogId $id): ?array
   {
     $sql = sprintf(
       "SELECT * FROM %s WHERE id = :id",
       self::TABLE_NAME
     );
     $statement = $this->pdo->prepare($sql);
-    $statement->bindValue(':id', $id, PDO::PARAM_INT);
+    $statement->bindValue(':id', $id->value(), PDO::PARAM_INT);
     $statement->execute();
     $blog = $statement->fetchAll(PDO::FETCH_ASSOC);
     return $blog;
@@ -60,36 +71,36 @@ final class BlogDao
 
   /**
    * ブログ編集を保存する
-   * @param  string $id
-   * @param　string $title
-   * @param　string $content
+   * @param  BlogId $id
+   * @param　BlogTitle $title
+   * @param　BlogContent $content
    */
-  public function update(string $id, string $title, string $content): void
+  public function update(BlogId $id, BlogTitle $title, BlogContent $content): void
   {
     $sql = sprintf(
       "UPDATE %s SET title = :title, content = :content WHERE id = :id",
       self::TABLE_NAME
     );
     $statement = $this->pdo->prepare($sql);
-    $statement->bindParam(':id', $id, PDO::PARAM_INT);
-    $statement->bindParam(':title', $title, PDO::PARAM_STR);
-    $statement->bindParam(':content', $content, PDO::PARAM_STR);
+    $statement->bindParam(':id', $id->value(), PDO::PARAM_INT);
+    $statement->bindParam(':title', $title->value(), PDO::PARAM_STR);
+    $statement->bindParam(':content', $content->value(), PDO::PARAM_STR);
     $statement->execute();
   }
 
   /**
    * ユーザーの情報を取得する
-   * @param  string $user_id
+   * @param  UserId $user_id
    * @return　array $blogs
    */
-  public function fetchAllByUserId(string $user_id): array
+  public function fetchAllByUserId(UserId $user_id): array
   {
     $sql = sprintf(
       "SELECT * FROM %s WHERE user_id = :user_id",
       self::TABLE_NAME
     );
     $statement = $this->pdo->prepare($sql);
-    $statement->bindValue(':user_id', $user_id);
+    $statement->bindValue(':user_id', $user_id->value(), PDO::PARAM_STR);
     $statement->execute();
     $blogs = $statement->fetchAll(PDO::FETCH_ASSOC);
     return $blogs;
@@ -97,31 +108,35 @@ final class BlogDao
 
   /**
    * ブログを保存する
-   * @param  string $user_id
-   * @param　string $title
-   * @param　string $content
+   * @param  UserId $user_id
+   * @param　BlogTitle $title
+   * @param　BlogContent $content
    */
-  public function create(string $user_id, string $title, string $content): void
+  public function create(UserId $user_id, BlogTitle $title, BlogContent $content): void
   {
     $sql = sprintf(
       "INSERT INTO %s (user_id, title, content) VALUES (:user_id, :title, :content)",
       self::TABLE_NAME
     );
     $statement = $this->pdo->prepare($sql);
-    $statement->bindValue(':user_id', $user_id, PDO::PARAM_STR);
-    $statement->bindValue(':title', $title, PDO::PARAM_STR);
-    $statement->bindValue(':content', $content, PDO::PARAM_STR);
+    $statement->bindValue(':user_id', $user_id->value(), PDO::PARAM_STR);
+    $statement->bindValue(':title', $title->value(), PDO::PARAM_STR);
+    $statement->bindValue(':content', $content->value(), PDO::PARAM_STR);
     $statement->execute();
   }
 
-  public function delete(string $id): void
+  /**
+   * ブログを削除する
+   * @param  BlogId $id
+   */
+  public function delete(BlogId $id): void
   {
     $sql = sprintf(
       "DELETE FROM %s WHERE id = :id",
       self::TABLE_NAME
     );
     $statement = $this->pdo->prepare($sql);
-    $statement->bindValue(':id', $id, PDO::PARAM_STR);
+    $statement->bindValue(':id', $id->value(), PDO::PARAM_STR);
     $statement->execute();
   }
 }

@@ -1,16 +1,13 @@
 <?php
+require_once __DIR__ . '/../app/Domain/ValueObject/User/UserId.php';
 require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
 require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
 
 session_start();
-$user_id = $_SESSION['user']['id'];
-if (!$user_id) {
-  redirect('user/signin.php');
-} 
-
+$id = $_SESSION['user']['id'];
+$UserId = new UserId($id);
 $BlogDao = new BlogDao();
-$myblog = $BlogDao->fetchAllByUserId($user_id);
-
+$myblog = $BlogDao->fetchAllByUserId($UserId);
 require_once('header.php');
 ?>
 

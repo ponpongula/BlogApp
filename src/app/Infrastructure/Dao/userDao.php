@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../Domain/ValueObject/User/NewUser.php';
 require_once __DIR__ . '/../../Domain/ValueObject/User/Email.php';
+
 /**
  * ユーザー情報を操作するDAO
  */
@@ -12,6 +13,10 @@ final class UserDao
     const TABLE_NAME = 'users';
     private $pdo;
 
+    /**
+     * コンストラクタ
+     * @param PDO $pdo
+     */
     public function __construct()
     {
         try {
@@ -27,9 +32,7 @@ final class UserDao
 
     /**
      * ユーザーを追加する
-     * @param  string $name
-     * @param  string $mail
-     * @param  string $password
+     * @param  NewUser $user
      */
     public function create(NewUser $user): void
     {
@@ -48,7 +51,7 @@ final class UserDao
 
     /**
      * emailの有無を検索する
-     * @param  string $email
+     * @param  Email $email
      * @return array | null
      */
     public function findByEmail(Email $email): ?array

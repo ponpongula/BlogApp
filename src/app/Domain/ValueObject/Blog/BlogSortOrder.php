@@ -8,11 +8,9 @@ final class BlogSortOrder
    * ブログソートの不正な場合のエラーメッセージ
    */
   const INVALID_MESSAGE = '不正な値です';
-  const SORT_ORDER_DESC = 'DESC';
-  const SORT_ORDER_ASC = 'ASC';
 
   /**
-   * @var string
+   * @var string | NULL
    */
   private $value;
 
@@ -23,7 +21,7 @@ final class BlogSortOrder
    */
   public function __construct(?string $value)
   {
-      if (!self::SORT_ORDER_DESC === $value || !self::SORT_ORDER_ASC === $value) {
+      if (!$value ===  'DESC' || !$value === 'ASC') {
         if (!is_null($value)) throw new Exception(self::INVALID_MESSAGE);
       }
 
