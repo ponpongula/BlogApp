@@ -2,6 +2,7 @@
 /**
  * ブログソートのValueObject
  */
+final class BlogSortOrder
 {
   /**
    * ブログソートの不正な場合のエラーメッセージ

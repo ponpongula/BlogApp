@@ -1,11 +1,14 @@
 <?php
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogSearchWord.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogSortOrder.php';
+
 /**
  * リードユースケースの入力値
  */
 final class ReadInput
 {
     /**
-     * @var BlogSerchWord
+     * @var BlogSearchWord
      */
     private $searchWord;
 
@@ -17,19 +20,19 @@ final class ReadInput
     /**
      * コンストラクター
      * 
-     * @param BlogSerchWord $searchWord 
+     * @param BlogSearchWord $searchWord 
      * @param BlogSortOrder $sortOrder 
      */
-    public function __construct(?BlogSerchWord $searchWord, ?BlogSortOrder $sortOrder)
+    public function __construct(?BlogSearchWord $searchWord, ?BlogSortOrder $sortOrder)
     {
         $this->searchWord = $searchWord;
         $this->sortOrder = $sortOrder;
     }
 
     /**
-     * @return BlogSerchWord
+     * @return BlogSearchWord
      */
-    public function searchWord(): ?BlogSerchWord
+    public function searchWord(): ?BlogSearchWord
     {
         return $this->searchWord;
     }

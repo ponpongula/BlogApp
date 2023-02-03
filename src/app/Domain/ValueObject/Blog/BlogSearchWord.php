@@ -2,7 +2,7 @@
 /**
  * ブログ検索のValueObject
  */
-final class BlogSerchWord
+final class BlogSearchWord
 {
     /**
      * ブログ検索ワードの不正な場合のエラーメッセージ
