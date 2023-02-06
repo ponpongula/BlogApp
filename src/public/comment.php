@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '/../app/Domain/ValueObject/User/UserId.php';
+require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogId.php';
+require_once __DIR__ . '/../app/Domain/ValueObject/User/UserName.php';
+require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogComment.php';
 require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
 require_once __DIR__ . '/../app/Infrastructure/Dao/CommentDao.php';
 require_once __DIR__ . '/../app/UseCase/UseCaseInput/CommentInput.php';
@@ -8,11 +12,22 @@ require_once __DIR__ . '/../app/UseCase/UseCaseOutput/CommentOutput.php';
 session_start();
 $user_id = $_SESSION['user']['id'];
 $blog_id = filter_input(INPUT_POST, 'blog_id');
-$commenter_name = filter_input(INPUT_POST, 'commenter_name');
+$commenter_name = $_SESSION['user']['name'];
 $comment = filter_input(INPUT_POST, 'comment');
-
-$useCaseInput = new CommentInput($user_id, $blog_id, $commenter_name, $comment);
-$commentDao = new CommentDao();
-$useCase = new CommentInteractor($useCaseInput, $commentDao);
-$useCaseOutput = $useCase->handler();
-redirect('index.php');
+try {
+  if (empty($comment)) {
+      throw new Exception('コメント内容を入力してください');
+  } 
+  $UserId = new UserId($user_id);
+  $BlogId = new BlogId($blog_id);
+  $CommenterName = new UserName($commenter_name);
+  $BlogComment = new BlogComment($comment);
+  $useCaseInput = new CommentInput($UserId, $BlogId, $CommenterName, $BlogComment);
+  $commentDao = new CommentDao();
+  $useCase = new CommentInteractor($useCaseInput, $commentDao);
+  $useCaseOutput = $useCase->handler();
+  redirect("detail.php?id=$blog_id");
+} catch (Exception $e) {
+  $_SESSION['errors'][] = $e->getMessage();
+  redirect("detail.php?id=$blog_id");
+}

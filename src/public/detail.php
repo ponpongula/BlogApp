@@ -3,14 +3,14 @@ require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogId.php';
 require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
 require_once __DIR__ . '/../app/Infrastructure/Dao/CommentDao.php';
 
-
+session_start();
 $id = filter_input(INPUT_GET, 'id');
 $BlogId = new BlogId($id);
 $BlogDao = new BlogDao();
 $blog = $BlogDao->edit($BlogId);
 
 $CommentDao = new CommentDao();
-$comments = $CommentDao->fetchAllByBlogId($id);
+$comments = $CommentDao->fetchAllByBlogId($BlogId);
 ?>
 
 <!DOCTYPE html>
@@ -53,8 +53,8 @@ $comments = $CommentDao->fetchAllByBlogId($id);
         </tr>
 
         <tr>
-          <td>コメント名</td>
-          <td><input name="commenter_name" placeholder="コメントタイトル"></td>
+          <td>ユーザー名</td>
+          <td><?php echo $_SESSION['user']['name']; ?></td>
         </tr>
         <tr>
           <td>内容</td>
@@ -70,15 +70,15 @@ $comments = $CommentDao->fetchAllByBlogId($id);
   <?php foreach ($comments as $value) : ?>
     <table align="center">
       <tr>
-        <td><h1><?php echo $value['commenter_name']?></h1></td>
-      </tr>
-
-      <tr>
-        <td><p>投稿日：<?php echo $value['created_at']?></p></td>
+        <td><?php echo $value['commenter_name']?></td>
       </tr>
 
       <tr>
         <td><p><?php echo $value['comments']?></p></td>
+      </tr>
+
+      <tr>
+        <td><p>投稿日：<?php echo $value['created_at']?></p></td>
       </tr><hr>
       
     </table>

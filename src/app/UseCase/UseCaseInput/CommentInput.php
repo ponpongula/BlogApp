@@ -1,43 +1,47 @@
 <?php
 require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogTitle.php';
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogContent.php';
-
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogId.php';
+require_once __DIR__ . '/../../Domain/ValueObject/User/UserName.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogComment.php';
 /**
  * コメントユースケースの入力値
  */
 final class CommentInput
 {
     /**
-     * @var string
+     * @var UserId
      */
     private $user_id;
 
     /**
-     * @var string
+     * @var BlogId
      */
     private $blog_id;
 
     /**
-     * @var string
+     * @var UserName
      */
     private $commenter_name;
 
     /**
-     * @var string
+     * @var BlogComment
      */
     private $comment;
 
     /**
      * コンストラクタ
      *
-     * @param string $user_id
-     * @param string $title
-     * @param string $content
-     * @param string $comment
+     * @param UserId $user_id
+     * @param BlogId $title
+     * @param UserName $content
+     * @param BlogComment $comment
      */
-    public function __construct(string $user_id, string $blog_id, string $commenter_name, string $comment)
-    {
+    public function __construct(
+        UserId $user_id, 
+        BlogId $blog_id, 
+        UserName $commenter_name, 
+        BlogComment $comment
+    ){
         $this->user_id = $user_id;
         $this->blog_id = $blog_id;
         $this->commenter_name = $commenter_name;
@@ -45,33 +49,33 @@ final class CommentInput
     }
 
     /**
-     * @return string
+     * @return UserId
      */
-    public function user_id(): string
+    public function user_id(): UserId
     {
         return $this->user_id;
     }
 
     /**
-     * @return string
+     * @return BlogId
      */
-    public function blog_id(): string
+    public function blog_id(): BlogId
     {
         return $this->blog_id;
     }
 
     /**
-     * @return string
+     * @return UserName
      */
-    public function commenter_name(): string
+    public function commenter_name(): UserName
     {
         return $this->commenter_name;
     }
 
     /**
-     * @return string
+     * @return BlogComment
      */
-    public function comment(): string
+    public function comment(): BlogComment
     {
         return $this->comment;
     }
