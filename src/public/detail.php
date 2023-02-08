@@ -11,6 +11,12 @@ $blog = $BlogDao->edit($BlogId);
 
 $CommentDao = new CommentDao();
 $comments = $CommentDao->fetchAllByBlogId($BlogId);
+
+$errors = $_SESSION['errors'] ?? [];
+unset($_SESSION['errors']);
+
+$successRegistedMessage = $_SESSION['message'] ?? '';
+unset($_SESSION['message']);
 ?>
 
 <!DOCTYPE html>
@@ -24,26 +30,31 @@ $comments = $CommentDao->fetchAllByBlogId($BlogId);
 
 </style>
 <body>
-  <?php foreach ($blog as $value) : ?>
-    <table align="center">
-      <tr>
-        <td><h1><?php echo $value['title']?></h1></td>
-      </tr>
+    <?php foreach ($blog as $value) : ?>
+      <table align="center">
+        <tr>
+          <td><h1><?php echo $value['title']?></h1></td>
+        </tr>
 
-      <tr>
-        <td><p>投稿日：<?php echo $value['created_at']?></p></td>
-      </tr>
+        <tr>
+          <td><p>投稿日：<?php echo $value['created_at']?></p></td>
+        </tr>
 
-      <tr>
-        <td><p><?php echo $value['content']?></p></td>
-      </tr>
+        <tr>
+          <td><p><?php echo $value['content']?></p></td>
+        </tr>
 
-      <tr>
-        <td><p><a href="index.php">一覧ページへ</p></td>
-      </tr>
-    </table><hr>
-  <?php endforeach; ?>
-
+        <tr>
+          <td><p><a href="index.php">一覧ページへ</p></td>
+        </tr>
+      </table><hr>
+    <?php endforeach; ?>
+    
+    <?php if (!empty($errors)): ?>
+            <?php foreach ($errors as $error): ?>
+                <p class="text-red-600"><?php echo $error; ?></p>
+            <?php endforeach; ?>
+    <?php endif; ?>
     <form action="comment.php" method="post">
     <input type="hidden" name="blog_id" value="<?php echo $id; ?>">
       <table align="center">
@@ -51,7 +62,7 @@ $comments = $CommentDao->fetchAllByBlogId($BlogId);
         <tr>
           <td><h1>この投稿にコメントしますか？</h1></td>
         </tr>
-
+      
         <tr>
           <td>ユーザー名</td>
           <td><?php echo $_SESSION['user']['name']; ?></td>

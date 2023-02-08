@@ -5,6 +5,8 @@ require_once __DIR__ . '/../app/Domain/ValueObject/User/UserName.php';
 require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogComment.php';
 require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
 require_once __DIR__ . '/../app/Infrastructure/Dao/CommentDao.php';
+require_once __DIR__ . '/../app/Infrastructure/Dao/UserDao.php';
+require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
 require_once __DIR__ . '/../app/UseCase/UseCaseInput/CommentInput.php';
 require_once __DIR__ . '/../app/UseCase/UseCaseInteractor/CommentInteractor.php';
 require_once __DIR__ . '/../app/UseCase/UseCaseOutput/CommentOutput.php';
@@ -24,8 +26,13 @@ try {
   $BlogComment = new BlogComment($comment);
   $useCaseInput = new CommentInput($UserId, $BlogId, $CommenterName, $BlogComment);
   $commentDao = new CommentDao();
-  $useCase = new CommentInteractor($useCaseInput, $commentDao);
+  $userDao = new UserDao();
+  $blogDao = new BlogDao();
+  $useCase = new CommentInteractor($useCaseInput, $commentDao, $userDao, $blogDao);
   $useCaseOutput = $useCase->handler();
+  if (!$useCaseOutput->isSuccess()) {
+    throw new Exception('ユーザーまたは、ブログが存在しません');
+  }
   redirect("detail.php?id=$blog_id");
 } catch (Exception $e) {
   $_SESSION['errors'][] = $e->getMessage();
