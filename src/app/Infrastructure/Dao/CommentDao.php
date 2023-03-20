@@ -1,4 +1,9 @@
 <?php
+require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogId.php';
+require_once __DIR__ . '/../../Domain/ValueObject/User/UserName.php';
+require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogComment.php';
+
 /**
  * コメント情報を操作するDAO
  */
@@ -22,12 +27,12 @@ final class CommentDao
 
     /**
      * コメントを作成する
-     * @param  string $user_id
-     * @param　string $blog_id
-     * @param　string $commenter_name
-     * @param　string $comments
+     * @param  UserId $user_id
+     * @param　BlogId $blog_id
+     * @param　UserName $commenter_name
+     * @param　BlogComment $comment
      */
-    public function create(string $user_id, string $blog_id, string $commenter_name, string $comments): void
+    public function create(UserId $user_id, BlogId $blog_id, UserName $commenter_name, BlogComment $comment): void
     {
       
       $sql = sprintf(
@@ -39,28 +44,28 @@ final class CommentDao
         self::TABLE_NAME
       );
       $statement = $this->pdo->prepare($sql);
-      $statement->bindValue(':user_id', $user_id, PDO::PARAM_STR);
-      $statement->bindValue(':blog_id', $blog_id, PDO::PARAM_STR);
-      $statement->bindValue(':commenter_name', $commenter_name, PDO::PARAM_STR);
-      $statement->bindValue(':comments', $comments, PDO::PARAM_STR);
+      $statement->bindValue(':user_id', $user_id->value(), PDO::PARAM_STR);
+      $statement->bindValue(':blog_id', $blog_id->value(), PDO::PARAM_STR);
+      $statement->bindValue(':commenter_name', $commenter_name->value(), PDO::PARAM_STR);
+      $statement->bindValue(':comments', $comment->value(), PDO::PARAM_STR);
       $statement->execute();
     }
 
 
     /**
      * ブログのコメントを取得する
-     * @param  string $user_id
+     * @param  BlogId $blog_id
      * @return array $comments
      */
 
-    public function fetchAllByBlogId(string $id): array
+    public function fetchAllByBlogId(BlogId $blog_id): array
     {
       $sql = sprintf(
         "SELECT * FROM %s WHERE blog_id = :blog_id",
         self::TABLE_NAME
       );
       $statement = $this->pdo->prepare($sql);
-      $statement->bindValue(':blog_id', $id, PDO::PARAM_STR);
+      $statement->bindValue(':blog_id', $blog_id->value(), PDO::PARAM_STR);
       $statement->execute();
       $comments = $statement->fetchAll(PDO::FETCH_ASSOC);
       return $comments;

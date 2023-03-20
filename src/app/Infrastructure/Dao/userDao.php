@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
 require_once __DIR__ . '/../../Domain/ValueObject/User/NewUser.php';
 require_once __DIR__ . '/../../Domain/ValueObject/User/Email.php';
 
@@ -62,6 +63,25 @@ final class UserDao
         );
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(':email', $email->value(), PDO::PARAM_STR);
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        
+        return $user ? $user : null;
+    }
+
+    /**
+     * useridの有無を検索する
+     * @param  UserId $user
+     * @return array | null
+     */
+    public function findByUserId(UserId $user): ?array
+    {
+        $sql = sprintf(
+            'SELECT * FROM %s WHERE id = :id',
+            self::TABLE_NAME
+        );
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':id', $user->value(), PDO::PARAM_STR);
         $statement->execute();
         $user = $statement->fetch(PDO::FETCH_ASSOC);
         

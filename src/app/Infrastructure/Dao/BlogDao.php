@@ -139,5 +139,24 @@ final class BlogDao
     $statement->bindValue(':id', $id->value(), PDO::PARAM_STR);
     $statement->execute();
   }
+
+  /**
+     * blogidの有無を検索する
+     * @param  BlogId $id
+     * @return array | null
+     */
+    public function findByBlogId(BlogId $id): ?array
+    {
+        $sql = sprintf(
+            'SELECT * FROM %s WHERE id = :id',
+            self::TABLE_NAME
+        );
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':id', $id->value(), PDO::PARAM_STR);
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        
+        return $user ? $user : null;
+    }
 }
 ?>
