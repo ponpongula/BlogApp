@@ -2,6 +2,7 @@
 namespace App\Infrastructure\Dao;
 require_once __DIR__ . '/../../../vendor/autoload.php';
 use App\Domain\Entity\UserAge;
+use \PDO;
 
 /**
  * ユーザー情報を操作する

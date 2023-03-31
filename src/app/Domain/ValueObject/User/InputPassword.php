@@ -2,6 +2,7 @@
 namespace App\Domain\ValueObject\User;
 require_once __DIR__ . '/../../../../vendor/autoload.php';
 use App\Domain\ValueObject\User\HashedPassword;
+use \Exception;
 
 /**
  * ユーザーが入力したパスワード用のValueObject

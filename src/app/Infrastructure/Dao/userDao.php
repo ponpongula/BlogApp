@@ -1,7 +1,10 @@
 <?php
-require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/NewUser.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/Email.php';
+namespace App\Infrastructure\Dao;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Domain\ValueObject\User\UserId;
+use App\Domain\ValueObject\User\NewUser;
+use App\Domain\ValueObject\User\Email;
+use \PDO;
 
 /**
  * ユーザー情報を操作するDAO
@@ -45,8 +48,16 @@ final class UserDao
         );
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(':name', $user->name()->value(), PDO::PARAM_STR);
-        $statement->bindValue(':email', $user->email()->value(), PDO::PARAM_STR);
-        $statement->bindValue(':password', $hashedPassword->value(), PDO::PARAM_STR);
+        $statement->bindValue(
+            ':email',
+            $user->email()->value(),
+            PDO::PARAM_STR
+        );
+        $statement->bindValue(
+            ':password',
+            $hashedPassword->value(),
+            PDO::PARAM_STR
+        );
         $statement->execute();
     }
 
@@ -65,7 +76,7 @@ final class UserDao
         $statement->bindValue(':email', $email->value(), PDO::PARAM_STR);
         $statement->execute();
         $user = $statement->fetch(PDO::FETCH_ASSOC);
-        
+
         return $user ? $user : null;
     }
 
@@ -76,15 +87,12 @@ final class UserDao
      */
     public function findByUserId(UserId $user): ?array
     {
-        $sql = sprintf(
-            'SELECT * FROM %s WHERE id = :id',
-            self::TABLE_NAME
-        );
+        $sql = sprintf('SELECT * FROM %s WHERE id = :id', self::TABLE_NAME);
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(':id', $user->value(), PDO::PARAM_STR);
         $statement->execute();
         $user = $statement->fetch(PDO::FETCH_ASSOC);
-        
+
         return $user ? $user : null;
     }
 }

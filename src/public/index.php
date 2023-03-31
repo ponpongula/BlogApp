@@ -1,26 +1,30 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
 use App\Infrastructure\Redirect\Redirect;
 use App\Domain\ValueObject\Blog\BlogId;
 use App\Domain\ValueObject\Blog\BlogSortOrder;
+use App\Domain\ValueObject\Blog\BlogSearchWord;
 use App\Infrastructure\Dao\BlogDao;
 use App\UseCase\UseCaseInput\ReadInput;
 use App\UseCase\UseCaseInteractor\ReadInteractor;
 use App\UseCase\UseCaseInteractor\ReadOutput;
 
 session_start();
-if (!$_SESSION['user']['id']) {
-  redirect('user/signin.php');
-} 
+if (empty($_SESSION['user']['id'])) {
+    redirect('user/signin.php');
+}
 
 $searchWord = filter_input(INPUT_GET, 'search');
 if (!$searchWord) {
-  $searchWord = "";
+    $searchWord = '';
 }
-if ($_GET['order'] === 'desc') {
-  $sortOrder = ' DESC';
-} elseif ($_GET['order'] === 'asc') {
-  $sortOrder = ' ASC';
+
+$order = filter_input(INPUT_GET, 'order');
+if (!$order) {
+    $sortOrder = ' ' . $order;
+} else {
+    $sortOrder = ' desc';
 }
 $BlogSearchWord = new BlogSearchWord($searchWord);
 $BlogSortOrder = new BlogSortOrder($sortOrder);
@@ -64,15 +68,15 @@ $blogs = $useCaseOutput->blogList();
     <label>
       <input type="radio" name="order" value="desc" class="" 
       <?php if (!isset($_GET['order']) || $_GET['order'] == 'desc') {
-                echo 'checked';
-            } ?>>
+          echo 'checked';
+      } ?>>
       <span>新着順</span>
     </label>
     <label>
       <input type="radio" name="order" value="asc" class="" 
       <?php if (isset($_GET['order']) && $_GET['order'] != 'desc') {
-                echo 'checked';
-            } ?>>
+          echo 'checked';
+      } ?>>
       <span>古い順</span>
     </label>
   <button type="submit">送信</button>
@@ -80,13 +84,15 @@ $blogs = $useCaseOutput->blogList();
   
  
     <form action="detail.php" method="post">
-    <?php foreach ($blogs as $blog) : ?>
+    <?php foreach ($blogs as $blog): ?>
       <table>
         <td>
           <p><tr><h2><?php echo $blog['title']; ?></h2></tr></p>
           <p><tr><?php echo $blog['created_at']; ?></tr></p>
           <p><tr><?php echo $blog['content']; ?></tr></p>
-          <p><tr><a href="detail.php?id=<?php echo $blog['id']; ?>">詳細ページへ</a></tr></p>
+          <p><tr><a href="detail.php?id=<?php echo $blog[
+              'id'
+          ]; ?>">詳細ページへ</a></tr></p>
           <hr>
         </td>
       </table>

@@ -2,6 +2,7 @@
 namespace App\Adapter\QueryServise;
 require_once __DIR__ . '/../../../vendor/autoload.php';
 use App\Infrastructure\Dao\UserDao;
+use App\Infrastructure\Dao\UserAgeDao;
 use App\Domain\Entity\User;
 use App\Domain\Entity\UserAge;
 use App\Domain\ValueObject\User\UserId;
@@ -10,8 +11,6 @@ use App\Domain\ValueObject\User\Email;
 use App\Domain\ValueObject\User\HashedPassword;
 use App\Domain\ValueObject\User\Age;
 use App\Domain\ValueObject\User\RegistrationDate;
-
-
 
 final class UserQueryServise
 {
@@ -44,12 +43,12 @@ final class UserQueryServise
             return null;
         }
         return new User(
-                    new UserId($user['id']),
-                    new UserName($user['name']),
-                    new Email($user['email']),
-                    new HashedPassword($user['password']),
-                    new Age($userAge['age']),
-                    new RegistrationDate($userAge['created_at'])
-                );
+            new UserId($user['id']),
+            new UserName($user['name']),
+            new Email($user['email']),
+            new HashedPassword($user['password']),
+            new Age($userAge['age']),
+            new RegistrationDate($userAge['created_at'])
+        );
     }
 }

@@ -1,16 +1,17 @@
 <?php
-
 namespace App\UseCase\UseCaseInteractor;
 require_once __DIR__ . '/../../../vendor/autoload.php';
 use App\UseCase\UseCaseInput\ReadInput;
 use App\UseCase\UseCaseOutput\ReadOutput;
+use App\Infrastructure\Dao\BlogDao;
 
 final class ReadInteractor
 {
     private $input;
     private $blogDao;
 
-    public function __construct(ReadInput $input, BlogDao $blogDao) {
+    public function __construct(ReadInput $input, BlogDao $blogDao)
+    {
         $this->input = $input;
         $this->blogDao = $blogDao;
     }

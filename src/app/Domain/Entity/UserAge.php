@@ -1,5 +1,7 @@
 <?php
 namespace App\Domain\Entity;
+use App\Domain\ValueObject\User\UserId;
+use App\Domain\ValueObject\User\Age;
 
 /**
  * ユーザーのEntity

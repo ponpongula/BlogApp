@@ -1,5 +1,6 @@
 <?php
 namespace App\Domain\ValueObject\User;
+use \DateTime;
 
 /**
  * 登録日用のValueObject

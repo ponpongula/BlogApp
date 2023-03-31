@@ -1,5 +1,3 @@
-<?php session_start(); ?>
-
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -20,7 +18,9 @@
 </style>
 <body>
   <header>
-    <h1 class="title">こんにちは!<?php echo $_SESSION['user']['name']; ?>さん</h1>
+    <h1 class="title">こんにちは!<?php echo $_SESSION['user'][
+        'name'
+    ]; ?>さん</h1>
     <nav class="nav">
       <ul class="menu-group">
         <li class="menu-item"><a href="index.php">ホーム</a></li>
