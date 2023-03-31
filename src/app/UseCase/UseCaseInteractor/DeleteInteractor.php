@@ -1,6 +1,8 @@
 <?php
-require_once __DIR__ . '/../UseCaseInput/DeleteInput.php';
-require_once __DIR__ . '/../UseCaseOutput/DeleteOutput.php';
+namespace App\UseCase\UseCaseInteractor;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\UseCase\UseCaseInput\DeleteInput;
+use App\UseCase\UseCaseOutput\DeleteOutput;
 
 final class DeleteInteractor
 {

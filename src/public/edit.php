@@ -1,6 +1,7 @@
 <?php
-require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogId.php';
-require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+use App\Domain\ValueObject\Blog\BlogId;
+use App\Infrastructure\Dao\BlogDao;
 
 session_start();
 $errors = $_SESSION['errors'] ?? [];

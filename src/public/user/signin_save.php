@@ -1,12 +1,14 @@
 <?php
-require_once __DIR__ . '/../../app/Domain/ValueObject/User/Email.php';
-require_once __DIR__ . '/../../app/Domain/ValueObject/User/InputPassword.php';
-require_once __DIR__ . '/../../app/UseCase/UseCaseInput/SignInInput.php';
-require_once __DIR__ . '/../../app/Infrastructure/Dao/UserDao.php';
-require_once __DIR__ . '/../../app/Infrastructure/Dao/UserAgeDao.php';
-require_once __DIR__ . '/../../app/Adapter/QueryServise/UserQueryServise.php';
-require_once __DIR__ . '/../../app/UseCase/UseCaseInteractor/SignInInteractor.php';
-require_once __DIR__ . '/../../app/Infrastructure/Redirect/redirect.php';
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+use App\Infrastructure\Redirect\Redirect;
+use App\Infrastructure\Dao\UserDao;
+use App\Infrastructure\Dao\User\UserAgeDao;
+use App\Domain\ValueObject\User\Email;
+use App\Domain\ValueObject\User\InputPassword;
+use App\UseCase\UseCaseInput\SignInInput;
+use App\UseCase\UseCaseInteractor\SignInInteractor;
+use App\Adapter\QueryServise\UserQueryServise;
 
 $email = filter_input(INPUT_POST, 'email');
 $password = filter_input(INPUT_POST, 'password');

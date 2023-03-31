@@ -1,11 +1,12 @@
 <?php
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogSearchWord.php';
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogSortOrder.php';
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogId.php';
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogTitle.php';
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogContent.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
-
+namespace App\Infrastructure\Dao;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Domain\ValueObject\Blog\BlogSearchWord;
+use App\Domain\ValueObject\Blog\BlogSortOrder;
+use App\Domain\ValueObject\Blog\BlogId;
+use App\Domain\ValueObject\Blog\BlogTitle;
+use App\Domain\ValueObject\Blog\BlogContent;
+use App\Domain\ValueObject\User\UserId;
 /**
  * ブログ情報を操作するDAO
  */

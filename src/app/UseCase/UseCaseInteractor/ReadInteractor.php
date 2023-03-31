@@ -1,6 +1,9 @@
 <?php
-require_once __DIR__ . '/../UseCaseInput/ReadInput.php';
-require_once __DIR__ . '/../UseCaseOutput/ReadOutput.php';
+
+namespace App\UseCase\UseCaseInteractor;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\UseCase\UseCaseInput\ReadInput;
+use App\UseCase\UseCaseOutput\ReadOutput;
 
 final class ReadInteractor
 {

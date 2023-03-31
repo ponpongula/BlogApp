@@ -1,7 +1,9 @@
 <?php
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogId.php';
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogTitle.php';
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogContent.php';
+namespace App\UseCase\UseCaseInput;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Domain\ValueObject\Blog\BlogId;
+use App\Domain\ValueObject\Blog\BlogTitle;
+use App\Domain\ValueObject\Blog\BlogContent;
 
 /**
  * アップデートユースケースの入力値

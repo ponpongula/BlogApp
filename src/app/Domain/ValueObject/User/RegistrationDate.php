@@ -1,4 +1,6 @@
 <?php
+namespace App\Domain\ValueObject\User;
+
 /**
  * 登録日用のValueObject
  */

@@ -1,4 +1,6 @@
 <?php
+namespace App\Domain\ValueObject\User;
+
 /**
  * ハッシュ化したパスワード用のValueObject
  */

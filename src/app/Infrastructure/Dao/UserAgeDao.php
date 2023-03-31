@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../../Domain/Entity/UserAge.php';
+namespace App\Infrastructure\Dao;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Domain\Entity\UserAge;
 
 /**
  * ユーザー情報を操作する

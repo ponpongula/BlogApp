@@ -1,13 +1,16 @@
 <?php
-require_once __DIR__ . '/../../Infrastructure/Dao/UserDao.php';
-require_once __DIR__ . '/../../Domain/Entity/User.php';
-require_once __DIR__ . '/../../Domain/Entity/UserAge.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/UserName.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/Email.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/HashedPassword.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/Age.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/RegistrationDate.php';
+namespace App\Adapter\QueryServise;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Infrastructure\Dao\UserDao;
+use App\Domain\Entity\User;
+use App\Domain\Entity\UserAge;
+use App\Domain\ValueObject\User\UserId;
+use App\Domain\ValueObject\User\UserName;
+use App\Domain\ValueObject\User\Email;
+use App\Domain\ValueObject\User\HashedPassword;
+use App\Domain\ValueObject\User\Age;
+use App\Domain\ValueObject\User\RegistrationDate;
+
 
 
 final class UserQueryServise

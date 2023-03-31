@@ -1,4 +1,6 @@
 <?php
+namespace App\UseCase\UseCaseOutput;
+
 /**
  * ユーザー登録ユースケースの出力値
  */

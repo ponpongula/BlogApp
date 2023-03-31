@@ -1,8 +1,11 @@
 <?php
-require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogId.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/UserName.php';
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogComment.php';
+namespace App\Infrastructure\Dao;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Domain\ValueObject\Blog\BlogId;
+use App\Domain\ValueObject\User\UserId;
+use App\Domain\ValueObject\User\UserName;
+use App\Domain\ValueObject\Blog\BlogComment;
+
 
 /**
  * コメント情報を操作するDAO

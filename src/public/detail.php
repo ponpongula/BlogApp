@@ -1,7 +1,8 @@
 <?php 
-require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogId.php';
-require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
-require_once __DIR__ . '/../app/Infrastructure/Dao/CommentDao.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+use App\Domain\ValueObject\Blog\BlogId;
+use App\Infrastructure\Dao\BlogDao;
+use App\Infrastructure\Dao\CommentDao;
 
 session_start();
 $id = filter_input(INPUT_GET, 'id');

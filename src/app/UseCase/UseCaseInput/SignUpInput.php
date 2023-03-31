@@ -1,8 +1,10 @@
 <?php
-require_once __DIR__ . '/../../Domain/ValueObject/User/UserName.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/Email.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/InputPassword.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/Age.php';
+namespace App\UseCase\UseCaseInput;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Domain\ValueObject\User\UserName;
+use App\Domain\ValueObject\User\Email;
+use App\Domain\ValueObject\User\InputPassword;
+use App\Domain\ValueObject\User\Age;
 
 /**
  * ユーザー登録ユースケースの入力値

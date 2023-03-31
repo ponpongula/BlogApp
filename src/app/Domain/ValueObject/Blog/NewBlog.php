@@ -1,8 +1,10 @@
 <?php
-require_once __DIR__ . '/BlogId.php';
-require_once __DIR__ . '/../User/UserId.php';
-require_once __DIR__ . '/BlogTitle.php';
-require_once __DIR__ . '/BlogContent.php';
+namespace App\Domain\ValueObject\Blog;
+require_once __DIR__ . '/../../../../vendor/autoload.php';
+use App\Domain\ValueObject\Blog\BlogId;
+use App\Domain\ValueObject\Blog\BlogTitle;
+use App\Domain\ValueObject\Blog\BlogContent;
+use App\Domain\ValueObject\User\UserId;
 
 /**
  * 新規ブログ登録のValueObject

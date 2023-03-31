@@ -1,4 +1,6 @@
 <?php
+namespace App\UseCase\UseCaseOutput;
+
 /**
  * リードユースケースの返り値
  */

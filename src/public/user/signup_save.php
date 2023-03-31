@@ -1,14 +1,15 @@
 <?php
-require_once __DIR__ . '/../../app/Domain/ValueObject/User/UserName.php';
-require_once __DIR__ . '/../../app/Domain/ValueObject/User/Email.php';
-require_once __DIR__ . '/../../app/Domain/ValueObject/User/InputPassword.php';
-require_once __DIR__ . '/../../app/Domain/ValueObject/User/Age.php';
-require_once __DIR__ . '/../../app/UseCase/UseCaseInput/SignUpInput.php';
-require_once __DIR__ . '/../../app/Adapter/QueryServise/UserQueryServise.php';
-require_once __DIR__ . '/../../app/Adapter/Repository/UserRepository.php';
-require_once __DIR__ . '/../../app/UseCase/UseCaseInteractor/SignUpInteractor.php';
-require_once __DIR__ . '/../../app/Infrastructure/Redirect/redirect.php';
-
+require_once __DIR__ . '/../../vendor/autoload.php';
+use App\Infrastructure\Redirect\Redirect;
+use App\Infrastructure\Dao\UserDao;
+use App\Domain\ValueObject\User\UserName;
+use App\Domain\ValueObject\User\Email;
+use App\Domain\ValueObject\User\InputPassword;
+use App\Domain\ValueObject\User\Age;
+use App\UseCase\UseCaseInput\SignUpInput;
+use App\UseCase\UseCaseInteractor\SignUpInteractor;
+use App\Adapter\QueryServise\UserQueryServise;
+use App\Adapter\Repository\UserRepository;
 
 $name = filter_input(INPUT_POST, 'name');
 $email = filter_input(INPUT_POST, 'email');

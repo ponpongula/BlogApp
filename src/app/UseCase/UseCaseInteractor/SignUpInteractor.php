@@ -1,13 +1,16 @@
 <?php
-require_once __DIR__ . '/../../Adapter/QueryServise/UserQueryServise.php';
-require_once __DIR__ . '/../../Adapter/Repository/UserRepository.php';
-require_once __DIR__ . '/../UseCaseInput/SignUpInput.php';
-require_once __DIR__ . '/../../Infrastructure/Dao/UserDao.php';
-require_once __DIR__ . '/../../Infrastructure/Dao/UserAgeDao.php';
-require_once __DIR__ . '/../UseCaseOutput/SignUpOutput.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/NewUser.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/UserId.php';
-require_once __DIR__ . '/../../Domain/Entity/UserAge.php';
+
+namespace App\UseCase\UseCaseInteractor;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Adapter\QueryServise\UserQueryServise;
+use App\Adapter\Repository\UserRepository;
+use App\UseCase\UseCaseInput\SignUpInput;
+use App\UseCase\UseCaseOutput\SignUpOutput;
+use App\Infrastructure\Dao\UserDao;
+use App\Infrastructure\Dao\UserAgeDao;
+use App\Domain\ValueObject\User\NewUser;
+use App\Domain\ValueObject\User\UserId;
+use App\Domain\Entity\UserAge;
 
 final class SignUpInteractor
 {

@@ -1,4 +1,6 @@
 <?php
+namespace App\UseCase\UseCaseOutput;
+
 /**
  * アップデートユースケースの返り値
  */
