@@ -23,6 +23,9 @@
 ※デプロイ後の機能追加を想定し、NULLの許容を防ぐため別でuser_ageテーブルを作成しました。
 ![Editing BlogApp_README md at main · ponpongula_BlogApp - Google Chrome 2023_04_01 14_02_04](https://user-images.githubusercontent.com/92622872/229266600-25278b48-061b-4bd0-90a1-b6c51a6c499d.png)
 
+## DDD化
+User機能のDDD化のみ完成していて、<br>
+Blog機能、Comment機能は、はEntity、QueryService、Repositoryの作成は飛ばしております。
 
 ## 環境構築
 
