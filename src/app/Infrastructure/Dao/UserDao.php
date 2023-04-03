@@ -85,4 +85,8 @@ final class UserDao
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(':id', $user->value(), PDO::PARAM_STR);
         $statement->execute();
-        $user = $st
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        
+        return $user ? $user : null;
+    }
+}
