@@ -1,12 +1,14 @@
 <?php
-require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogTitle.php';
-require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogTitle.php';
-require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogTitle.php';
-require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
-require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
-require_once __DIR__ . '/../app/UseCase/UseCaseInput/UpdateInput.php';
-require_once __DIR__ . '/../app/UseCase/UseCaseInteractor/UpdateInteractor.php';
-require_once __DIR__ . '/../app/UseCase/UseCaseOutput/UpdateOutput.php';
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+use App\Infrastructure\Redirect\Redirect;
+use App\Domain\ValueObject\Blog\BlogId;
+use App\Domain\ValueObject\Blog\BlogTitle;
+use App\Domain\ValueObject\Blog\BlogContent;
+use App\Infrastructure\Dao\BlogDao;
+use App\UseCase\UseCaseInput\UpdateInput;
+use App\UseCase\UseCaseInteractor\UpdateInteractor;
+use App\UseCase\UseCaseInteractor\UpdateOutput;
 
 $id = filter_input(INPUT_POST, 'id');
 $title = filter_input(INPUT_POST, 'title');

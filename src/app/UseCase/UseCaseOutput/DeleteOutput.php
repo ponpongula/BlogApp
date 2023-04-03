@@ -1,4 +1,6 @@
 <?php
+namespace App\UseCase\UseCaseOutput;
+
 /**
  * デリートユースケースの返り値
  */

@@ -1,15 +1,17 @@
 <?php
-require_once __DIR__ . '/../app/Domain/ValueObject/User/UserId.php';
-require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogId.php';
-require_once __DIR__ . '/../app/Domain/ValueObject/User/UserName.php';
-require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogComment.php';
-require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
-require_once __DIR__ . '/../app/Infrastructure/Dao/CommentDao.php';
-require_once __DIR__ . '/../app/Infrastructure/Dao/UserDao.php';
-require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
-require_once __DIR__ . '/../app/UseCase/UseCaseInput/CommentInput.php';
-require_once __DIR__ . '/../app/UseCase/UseCaseInteractor/CommentInteractor.php';
-require_once __DIR__ . '/../app/UseCase/UseCaseOutput/CommentOutput.php';
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+use App\Infrastructure\Redirect\Redirect;
+use App\Domain\ValueObject\User\UserId;
+use App\Domain\ValueObject\User\UserName;
+use App\Domain\ValueObject\Blog\BlogId;
+use App\Domain\ValueObject\Blog\BlogComment;
+use App\Infrastructure\Dao\CommentDao;
+use App\Infrastructure\Dao\UserDao;
+use App\Infrastructure\Dao\BlogDao;
+use App\UseCase\UseCaseInput\CommentInput;
+use App\UseCase\UseCaseInteractor\CommentInteractor;
+use App\UseCase\UseCaseInteractor\CommentOutput;
 
 session_start();
 $user_id = $_SESSION['user']['id'];

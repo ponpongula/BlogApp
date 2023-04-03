@@ -1,10 +1,12 @@
 <?php
-require_once __DIR__ . '/../ValueObject/User/UserId.php';
-require_once __DIR__ . '/../ValueObject/User/UserName.php';
-require_once __DIR__ . '/../ValueObject/User/Email.php';
-require_once __DIR__ . '/../ValueObject/User/HashedPassword.php';
-require_once __DIR__ . '/../ValueObject/User/Age.php';
-require_once __DIR__ . '/../ValueObject/User/RegistrationDate.php';
+namespace App\Domain\Entity;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Domain\ValueObject\User\UserId;
+use App\Domain\ValueObject\User\UserName;
+use App\Domain\ValueObject\User\Email;
+use App\Domain\ValueObject\User\HashedPassword;
+use App\Domain\ValueObject\User\Age;
+use App\Domain\ValueObject\User\RegistrationDate;
 
 /**
  * ユーザーのEntity

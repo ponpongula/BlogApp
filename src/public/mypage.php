@@ -1,7 +1,8 @@
 <?php
-require_once __DIR__ . '/../app/Domain/ValueObject/User/UserId.php';
-require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
-require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+use App\Infrastructure\Redirect\Redirect;
+use App\Domain\ValueObject\User\UserId;
+use App\Infrastructure\Dao\BlogDao;
 
 session_start();
 $id = $_SESSION['user']['id'];

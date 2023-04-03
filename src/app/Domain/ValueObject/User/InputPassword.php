@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/HashedPassword.php';
+namespace App\Domain\ValueObject\User;
+require_once __DIR__ . '/../../../../vendor/autoload.php';
+use App\Domain\ValueObject\User\HashedPassword;
 
 /**
  * ユーザーが入力したパスワード用のValueObject

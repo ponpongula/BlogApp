@@ -1,6 +1,8 @@
 <?php
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogSearchWord.php';
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/BlogSortOrder.php';
+namespace App\UseCase\UseCaseInput;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Domain\ValueObject\Blog\BlogSearchWord;
+use App\Domain\ValueObject\Blog\BlogSortOrder;
 
 /**
  * リードユースケースの入力値

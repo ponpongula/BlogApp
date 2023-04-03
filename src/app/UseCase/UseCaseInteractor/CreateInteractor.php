@@ -1,7 +1,9 @@
 <?php
-require_once __DIR__ . '/../UseCaseInput/CreateInput.php';
-require_once __DIR__ . '/../UseCaseOutput/CreateOutput.php';
-require_once __DIR__ . '/../../Domain/ValueObject/Blog/NewBlog.php';
+namespace App\UseCase\UseCaseInteractor;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Domain\ValueObject\Blog\NewBlog;
+use App\UseCase\UseCaseInput\CreateInput;
+use App\UseCase\UseCaseOutput\CreateOutput;
 
 final class CreateInteractor
 {

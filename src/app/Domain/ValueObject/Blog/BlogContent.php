@@ -1,4 +1,6 @@
 <?php
+namespace App\Domain\ValueObject\Blog;
+
 /**
  * ブログの内容のValueObject
  */

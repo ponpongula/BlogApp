@@ -1,6 +1,8 @@
 <?php
-require_once __DIR__ . '/../UseCaseInput/UpdateInput.php';
-require_once __DIR__ . '/../UseCaseOutput/UpdateOutput.php';
+namespace App\UseCase\UseCaseInteractor;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\UseCase\UseCaseInput\UpdateInput;
+use App\UseCase\UseCaseOutput\UpdateOutput;
 
 final class UpdateInteractor
 {

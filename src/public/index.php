@@ -1,12 +1,12 @@
 <?php
-require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogSearchWord.php';
-require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogSortOrder.php';
-require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
-require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
-require_once __DIR__ . '/../app/UseCase/UseCaseInput/ReadInput.php';
-require_once __DIR__ . '/../app/UseCase/UseCaseInteractor/ReadInteractor.php';
-require_once __DIR__ . '/../app/UseCase/UseCaseOutput/ReadOutput.php';
-
+require_once __DIR__ . '/../vendor/autoload.php';
+use App\Infrastructure\Redirect\Redirect;
+use App\Domain\ValueObject\Blog\BlogId;
+use App\Domain\ValueObject\Blog\BlogSortOrder;
+use App\Infrastructure\Dao\BlogDao;
+use App\UseCase\UseCaseInput\ReadInput;
+use App\UseCase\UseCaseInteractor\ReadInteractor;
+use App\UseCase\UseCaseInteractor\ReadOutput;
 
 session_start();
 if (!$_SESSION['user']['id']) {

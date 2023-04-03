@@ -1,10 +1,11 @@
 <?php
-require_once __DIR__ . '/../app/Domain/ValueObject/Blog/BlogId.php';
-require_once __DIR__ . '/../app/Infrastructure/Dao/BlogDao.php';
-require_once __DIR__ . '/../app/Infrastructure/Redirect/redirect.php';
-require_once __DIR__ . '/../app/UseCase/UseCaseInput/DeleteInput.php';
-require_once __DIR__ . '/../app/UseCase/UseCaseInteractor/DeleteInteractor.php';
-require_once __DIR__ . '/../app/UseCase/UseCaseOutput/DeleteOutput.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+use App\Infrastructure\Redirect\Redirect;
+use App\Domain\ValueObject\Blog\BlogId;
+use App\Infrastructure\Dao\BlogDao;
+use App\UseCase\UseCaseInput\DeleteInput;
+use App\UseCase\UseCaseInteractor\DeleteInteractor;
+use App\UseCase\UseCaseInteractor\DeleteOutput;
 
 $id = filter_input(INPUT_GET, 'id');
 $BlogId = new BlogId($id);

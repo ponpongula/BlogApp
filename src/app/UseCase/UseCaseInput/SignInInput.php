@@ -1,7 +1,9 @@
 <?php
+namespace App\UseCase\UseCaseInput;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Domain\ValueObject\User\Email;
+use App\Domain\ValueObject\User\InputPassword;
 
-require_once __DIR__ . '/../../Domain/ValueObject/User/Email.php';
-require_once __DIR__ . '/../../Domain/ValueObject/User/InputPassword.php';
 /**
  * ログインユースケースの入力値
  */

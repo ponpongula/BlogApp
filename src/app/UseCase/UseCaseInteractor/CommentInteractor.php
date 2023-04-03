@@ -1,9 +1,11 @@
 <?php
-require_once __DIR__ . '/../../Infrastructure/Dao/CommentDao.php';
-require_once __DIR__ . '/../../Infrastructure/Dao/BlogDao.php';
-require_once __DIR__ . '/../../Infrastructure/Dao/UserDao.php';
-require_once __DIR__ . '/../UseCaseInput/CommentInput.php';
-require_once __DIR__ . '/../UseCaseOutput/CommentOutput.php';
+namespace App\UseCase\UseCaseInteractor;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Domain\ValueObject\Dao\CommentDao;
+use App\Domain\ValueObject\Dao\BlogDao;
+use App\Domain\ValueObject\Dao\UserDao;
+use App\UseCase\UseCaseInput\CommentInput;
+use App\UseCase\UseCaseOutput\CommentOutput;
 
 /**
  * コメントユースケース
