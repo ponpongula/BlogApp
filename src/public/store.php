@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../vendor/autoload.php';
-use App\Infrastructure\Redirect\Redirect;
+use App\Infrastructure\Redirect\redirect;
 use App\Domain\ValueObject\User\UserId;
 use App\Domain\ValueObject\Blog\BlogTitle;
 use App\Domain\ValueObject\Blog\BlogContent;

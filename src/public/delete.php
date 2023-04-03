@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
-use App\Infrastructure\Redirect\Redirect;
+use App\Infrastructure\Redirect\redirect;
 use App\Domain\ValueObject\Blog\BlogId;
 use App\Infrastructure\Dao\BlogDao;
 use App\UseCase\UseCaseInput\DeleteInput;

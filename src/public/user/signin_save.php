@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../vendor/autoload.php';
-use App\Infrastructure\Redirect\Redirect;
+use App\Infrastructure\Redirect\redirect;
 use App\Infrastructure\Dao\UserDao;
 use App\Infrastructure\Dao\User\UserAgeDao;
 use App\Domain\ValueObject\User\Email;
